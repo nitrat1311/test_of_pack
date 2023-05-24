@@ -13,8 +13,8 @@ dependencies:
 dev_dependencies:
   slot_package:
     git:
-      url: https://github.com/w1w1w1w1/slot_pack.git
-      ref: main
+      url: https://github.com/nitrat1311/slot_pack.git
+      ref: fotball-cripple-walking
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0

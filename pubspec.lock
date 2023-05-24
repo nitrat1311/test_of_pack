@@ -353,9 +353,9 @@ packages:
     dependency: "direct dev"
     description:
       path: "."
-      ref: main
-      resolved-ref: "0e4f0b58b4f2a5d23604a403ca4f887c542697b0"
-      url: "https://github.com/w1w1w1w1/slot_pack.git"
+      ref: fotball-cripple-walking
+      resolved-ref: "38488580c8a219de6a854888e7d3496c617bfc6f"
+      url: "https://github.com/nitrat1311/slot_pack.git"
     source: git
     version: "0.0.1"
   source_span:
