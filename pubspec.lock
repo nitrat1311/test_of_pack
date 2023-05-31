@@ -300,10 +300,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_linux
-      sha256: "2ae08f2216225427e64ad224a24354221c2c7907e448e6e0e8b57b1eb9f10ad1"
+      sha256: ffbb8cc9ed2c9ec0e4b7a541e56fd79b138e8f47d2fb86815f15358a349b3b57
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.10"
+    version: "2.1.11"
   path_provider_platform_interface:
     dependency: transitive
     description:
@@ -350,11 +350,11 @@ packages:
     source: sdk
     version: "0.0.99"
   slot_package:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       path: "."
-      ref: fotball-cripple-walking
-      resolved-ref: "38488580c8a219de6a854888e7d3496c617bfc6f"
+      ref: football-cripple-2
+      resolved-ref: "6492c4691b3da489de2188777686fd9b50227bf8"
       url: "https://github.com/nitrat1311/slot_pack.git"
     source: git
     version: "0.0.1"

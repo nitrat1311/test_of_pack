@@ -9,12 +9,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-dev_dependencies:
   slot_package:
     git:
       url: https://github.com/nitrat1311/slot_pack.git
-      ref: fotball-cripple-walking
+      ref: football-cripple-2
+dev_dependencies:
+
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0

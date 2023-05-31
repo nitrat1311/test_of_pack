@@ -1,4 +1,4 @@
-package com.example.test_of_pack
+package com.example.dice_roll_app
 
 import io.flutter.embedding.android.FlutterActivity
 
