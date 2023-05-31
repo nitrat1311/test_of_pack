@@ -9,10 +9,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  provider: ^6.0.5
   slot_package:
-    git:
-      url: https://github.com/nitrat1311/slot_pack.git
-      ref: football-cripple-2
+      path: lib/slot_package
+    # git:
+    #   url: https://github.com/nitrat1311/slot_pack.git
+    #   ref: football-cripple-2
 dev_dependencies:
 
   flutter_test:
