@@ -25,18 +25,7 @@ class GameMenu extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
     );
-    const double angle = 0.1;
-    final Shader linearGradient = const LinearGradient(
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
-      colors: <Color>[
-        AppColors.gradientTitle2,
-        AppColors.gradientTitle2,
-      ],
-    ).createShader(Rect.fromCenter(
-        center: Offset(0, 90.h),
-        width: MediaQuery.of(context).size.width / 1.3,
-        height: MediaQuery.of(context).size.height / 30));
+    const double angle = AppColors.randomPadding / 200;
 
     return Scaffold(
       body: Stack(children: [
@@ -53,32 +42,7 @@ class GameMenu extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Padding(
-                    padding: REdgeInsets.fromLTRB(0, 5, 0, 0),
-                    child: AutoSizeText(
-                      'BetBlitz Fortune',
-                      wrapWords: false,
-                      maxLines: 1,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          foreground: Paint()
-                            ..color = Colors.black
-                            ..shader = linearGradient,
-                          fontSize: 50,
-                          fontWeight: FontWeight.normal,
-                          shadows: [
-                            Shadow(
-                              offset: const Offset(3, 3.0),
-                              blurRadius: 8,
-                              color: const Color.fromARGB(255, 0, 0, 0)
-                                  .withOpacity(1),
-                            ),
-                          ]),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 40.h,
-                  ),
+                  const SizedBox(height: AppColors.randomPadding * 2),
                   Transform.rotate(
                     angle: angle,
                     child: GestureDetector(
@@ -98,8 +62,11 @@ class GameMenu extends StatelessWidget {
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: 20.h + AppColors.randomPadding,
+                  ),
                   Transform.rotate(
-                    angle: angle,
+                    angle: -angle,
                     child: GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(
@@ -117,6 +84,7 @@ class GameMenu extends StatelessWidget {
                       ),
                     ),
                   ),
+                  SizedBox(height: 20.h + AppColors.randomPadding),
                   Transform.rotate(
                     angle: angle,
                     child: GestureDetector(
@@ -136,7 +104,29 @@ class GameMenu extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20.h)
+                  Padding(
+                    padding: REdgeInsets.fromLTRB(
+                        0, 5 + AppColors.randomPadding, 0, 0),
+                    child: AutoSizeText(
+                      AppColors.appLable,
+                      wrapWords: false,
+                      maxLines: 1,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          foreground: Paint()..color = AppColors.frontColor,
+                          background: Paint()
+                            ..color = AppColors.backColor.withOpacity(0.5),
+                          fontSize: 50,
+                          fontWeight: FontWeight.normal,
+                          shadows: const [
+                            Shadow(
+                              offset: Offset(3, 3.0),
+                              blurRadius: 8,
+                              color: AppColors.backColor,
+                            ),
+                          ]),
+                    ),
+                  ),
                 ],
               ),
             ),

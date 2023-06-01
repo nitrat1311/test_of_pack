@@ -1,4 +1,3 @@
-import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -32,7 +31,7 @@ class PauseMenu extends StatelessWidget {
                     foreground: Paint()
                       ..style = PaintingStyle.stroke
                       ..strokeWidth = 4
-                      ..color = AppColors.textColorInsideGame,
+                      ..color = AppColors.backColor,
                     fontWeight: FontWeight.bold),
               ),
               Text(
@@ -40,10 +39,12 @@ class PauseMenu extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 50.sp,
                     letterSpacing: 5.0,
+                    background: Paint()
+                      ..color = AppColors.buttonColor.withOpacity(0.5),
                     foreground: Paint()
                       ..style = PaintingStyle.fill
                       ..strokeWidth = 1
-                      ..color = AppColors.gradientTitle2,
+                      ..color = AppColors.frontColor,
                     fontWeight: FontWeight.bold),
               ),
             ]),
@@ -55,19 +56,19 @@ class PauseMenu extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.gradientTitle2, width: 4),
+                  border: Border.all(color: AppColors.buttonColor, width: 4),
                   borderRadius: AppColors.borderRadius,
                 ),
                 child: FloatingActionButton.large(
-                  backgroundColor: AppColors.gradientTitle1,
+                  backgroundColor: AppColors.backColor,
                   onPressed: () {
                     gameRef.resumeEngine();
                     gameRef.overlays.remove(PauseMenu.id);
                     gameRef.overlays.add(PauseButton.id);
                   },
                   child: const Icon(
-                    Icons.play_arrow,
-                    color: AppColors.gradientTitle2,
+                    Icons.start,
+                    color: AppColors.frontColor,
                   ),
                 ),
               ),
@@ -75,11 +76,11 @@ class PauseMenu extends StatelessWidget {
               // Restart button.
               Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.gradientTitle2, width: 4),
+                  border: Border.all(color: AppColors.buttonColor, width: 4),
                   borderRadius: AppColors.borderRadius,
                 ),
                 child: FloatingActionButton.large(
-                  backgroundColor: AppColors.gradientTitle1,
+                  backgroundColor: AppColors.backColor,
                   onPressed: () {
                     gameRef.overlays.remove(PauseMenu.id);
                     gameRef.overlays.add(PauseButton.id);
@@ -87,8 +88,8 @@ class PauseMenu extends StatelessWidget {
                     gameRef.resumeEngine();
                   },
                   child: const Icon(
-                    Icons.reset_tv,
-                    color: AppColors.gradientTitle2,
+                    Icons.restart_alt,
+                    color: AppColors.frontColor,
                   ),
                 ),
               ),
@@ -98,12 +99,12 @@ class PauseMenu extends StatelessWidget {
           // Exit button.
           Container(
             decoration: BoxDecoration(
-              border: Border.all(color: AppColors.gradientTitle2, width: 4),
+              border: Border.all(color: AppColors.buttonColor, width: 4),
               borderRadius: AppColors.borderRadius,
             ),
             margin: REdgeInsets.only(top: 10),
             child: FloatingActionButton.large(
-              backgroundColor: AppColors.gradientTitle1,
+              backgroundColor: AppColors.backColor,
               elevation: 20,
               onPressed: () {
                 gameRef.overlays.remove(PauseMenu.id);
@@ -117,8 +118,8 @@ class PauseMenu extends StatelessWidget {
                 );
               },
               child: const Icon(
-                Icons.exit_to_app,
-                color: AppColors.gradientTitle2,
+                Icons.leave_bags_at_home,
+                color: AppColors.frontColor,
               ),
             ),
           ),

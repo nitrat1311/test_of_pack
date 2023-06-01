@@ -14,17 +14,6 @@ class RecordsTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    final Shader linearGradient = const LinearGradient(
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
-      colors: <Color>[
-        AppColors.gradientTitle1,
-        AppColors.gradientTitle2,
-      ],
-    ).createShader(Rect.fromCenter(
-        center: Offset(0, 55.h),
-        width: MediaQuery.of(context).size.width / 1.3,
-        height: MediaQuery.of(context).size.height / 30));
 
     return Scaffold(
       body: Stack(children: [
@@ -48,40 +37,38 @@ class RecordsTable extends StatelessWidget {
                       'Scores',
                       style: TextStyle(
                           backgroundColor:
-                              Color.fromARGB(255, 28, 21, 18).withOpacity(0.8),
-                          foreground: Paint()
-                            ..color = Colors.black
-                            ..shader = linearGradient,
+                              AppColors.buttonColor.withOpacity(0.5),
+                          foreground: Paint()..color = AppColors.frontColor,
                           fontSize: 50.sp,
-                          shadows: [
+                          shadows: const [
                             Shadow(
-                              offset: const Offset(1, 1.0),
+                              offset: Offset(1, 1.0),
                               blurRadius: 2,
-                              color: Colors.brown.withOpacity(1),
+                              color: AppColors.backColor,
                             ),
                           ]),
                     ),
                   ),
-                  Center(child: Text('No Scores now')),
+                  const Center(child: Text('Player Score : 250')),
                   SizedBox(height: 30.h),
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: AppColors.borderRadius,
                       border: Border.all(
-                        color: AppColors.gradientTitle2,
+                        color: AppColors.frontColor,
                         width: 4,
                       ),
                     ),
                     child: FloatingActionButton.small(
                       heroTag: null,
-                      backgroundColor: AppColors.gradientTitle1,
+                      backgroundColor: AppColors.buttonColor,
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => const GameMenu()));
                       },
                       child: const Icon(
-                        Icons.exit_to_app,
-                        color: AppColors.gradientTitle2,
+                        Icons.holiday_village,
+                        color: AppColors.frontColor,
                       ),
                     ),
                   ),

@@ -15,7 +15,7 @@ class Select extends StatelessWidget {
     return Scaffold(
       body: Stack(children: [
         Image.asset(
-          'packages/slot_package/assets/images/ship_A.png',
+          'packages/slot_package/assets/images/show_case.png',
           width: 428.w,
           height: 926.h,
           fit: BoxFit.cover,
@@ -29,13 +29,11 @@ class Select extends StatelessWidget {
                 margin: REdgeInsets.only(
                     top: MediaQuery.of(context).size.height / 1.1),
                 decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.gradientTitle2, width: 4),
-                  borderRadius:
-                      const BorderRadius.all(Radius.elliptical(5, 60)),
-                ),
+                    border: Border.all(color: AppColors.frontColor, width: 4),
+                    borderRadius: AppColors.borderRadius),
                 child: FloatingActionButton(
                   heroTag: null,
-                  backgroundColor: AppColors.gradientTitle1,
+                  backgroundColor: AppColors.buttonColor,
                   onPressed: () {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
@@ -44,8 +42,8 @@ class Select extends StatelessWidget {
                     );
                   },
                   child: const Icon(
-                    Icons.circle,
-                    color: AppColors.gradientTitle2,
+                    Icons.next_week,
+                    color: AppColors.frontColor,
                   ),
                 ),
               ),

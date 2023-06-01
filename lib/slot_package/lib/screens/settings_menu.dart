@@ -21,17 +21,6 @@ class _SettingsMenuState extends State<SettingsMenu> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    final Shader linearGradient = const LinearGradient(
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
-      colors: <Color>[
-        AppColors.gradientTitle1,
-        AppColors.gradientTitle2,
-      ],
-    ).createShader(Rect.fromCenter(
-        center: Offset(0, 45.h),
-        width: MediaQuery.of(context).size.width / 1.3,
-        height: MediaQuery.of(context).size.height / 30));
 
     return Scaffold(
       body: Stack(children: [
@@ -54,32 +43,28 @@ class _SettingsMenuState extends State<SettingsMenu> {
                     child: Text(
                       'SETTINGS',
                       style: TextStyle(
-                          backgroundColor:
-                              Color.fromARGB(255, 28, 21, 18).withOpacity(0.8),
-                          foreground: Paint()
-                            ..color = Colors.black
-                            ..shader = linearGradient,
+                          backgroundColor: AppColors.backColor.withOpacity(0.8),
+                          foreground: Paint()..color = AppColors.frontColor,
                           fontSize: 50.sp,
-                          shadows: [
+                          shadows: const [
                             Shadow(
-                              offset: const Offset(1, 1.0),
-                              blurRadius: 2,
-                              color: Colors.brown.withOpacity(1),
-                            ),
+                                offset: Offset(1, 1.0),
+                                blurRadius: 2,
+                                color: AppColors.backColor),
                           ]),
                     ),
                   ),
                   SizedBox(height: 20.h),
                   SwitchListTile(
-                    activeColor: AppColors.gradientTitle2,
+                    activeColor: AppColors.frontColor,
                     title: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(65.0),
                         border: Border.all(
-                          color: AppColors.gradientTitle2,
+                          color: AppColors.buttonColor,
                           width: 4.0,
                         ),
-                        color: AppColors.gradientTitle1,
+                        color: AppColors.backColor,
                       ),
                       child: Container(
                           padding: REdgeInsets.symmetric(horizontal: 16.0),
@@ -118,20 +103,20 @@ class _SettingsMenuState extends State<SettingsMenu> {
                   SizedBox(height: 25.h),
 
                   SwitchListTile(
-                    activeColor: AppColors.gradientTitle2,
+                    activeColor: AppColors.frontColor,
                     title: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(65.0),
                         border: Border.all(
-                          color: AppColors.gradientTitle2,
+                          color: AppColors.buttonColor,
                           width: 4.0,
                         ),
-                        color: AppColors.gradientTitle1,
+                        color: AppColors.backColor,
                       ),
                       child: Container(
                         padding: REdgeInsets.symmetric(horizontal: 16.0),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(65),
+                          borderRadius: AppColors.borderRadius,
                           gradient: LinearGradient(
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
@@ -165,12 +150,11 @@ class _SettingsMenuState extends State<SettingsMenu> {
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: AppColors.borderRadius,
-                      border:
-                          Border.all(color: AppColors.gradientTitle2, width: 4),
+                      border: Border.all(color: AppColors.frontColor, width: 4),
                     ),
                     child: FloatingActionButton.small(
                       heroTag: null,
-                      backgroundColor: AppColors.gradientTitle1,
+                      backgroundColor: AppColors.backColor,
                       onPressed: () {
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
@@ -180,7 +164,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
                       },
                       child: const Icon(
                         Icons.exit_to_app,
-                        color: AppColors.gradientTitle2,
+                        color: AppColors.frontColor,
                       ),
                     ),
                   ),

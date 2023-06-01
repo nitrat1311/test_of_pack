@@ -19,8 +19,8 @@ class PauseButton extends StatelessWidget {
       child: TextButton(
         child: Icon(
           size: 42.h,
-          Icons.pause_circle_rounded,
-          color: AppColors.gradientTitle2,
+          Icons.stop_circle_sharp,
+          color: AppColors.frontColor,
         ),
         onPressed: () {
           gameRef.pauseEngine();

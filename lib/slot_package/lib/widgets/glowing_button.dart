@@ -22,16 +22,14 @@ class GlowingButtonState extends State<GlowingButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: REdgeInsets.symmetric(vertical: 12),
-      // width: MediaQuery.of(context).size.width / 1.5,
-      // height: MediaQuery.of(context).size.height / 12,
+      margin: REdgeInsets.symmetric(vertical: AppColors.randomPadding / 2),
       decoration: BoxDecoration(
-        border: Border.all(color: Color.fromARGB(255, 20, 19, 19), width: 4),
+        border: Border.all(color: AppColors.buttonColor, width: 4),
         borderRadius: BorderRadius.circular(75),
         gradient: const LinearGradient(
           colors: [
-            AppColors.buttonColor1,
-            AppColors.buttonColor2,
+            AppColors.frontColor,
+            AppColors.backColor,
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -47,7 +45,8 @@ class GlowingButtonState extends State<GlowingButton> {
       ),
       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         Padding(
-            padding: const EdgeInsets.fromLTRB(0, 10, 0, 15),
+            padding: const EdgeInsets.fromLTRB(
+                0, AppColors.randomPadding / 3, 0, AppColors.randomPadding / 2),
             child: widget.child),
       ]),
     );

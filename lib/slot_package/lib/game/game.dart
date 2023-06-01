@@ -75,7 +75,7 @@ class MasksweirdGame extends FlameGame
     if (!_isAlreadyLoaded) {
       // Loads and caches all the images for later use.
       await images.loadAll([
-        'ship_A.png',
+        'show_case.png',
         'animation_fire.png',
         'animation_jump.png',
         'animation_kick.png',
@@ -95,7 +95,7 @@ class MasksweirdGame extends FlameGame
       );
 
       final stars = await ParallaxComponent.load(
-        [ParallaxImageData('stars1.png')],
+        [ParallaxImageData('fore.png')],
         fill: LayerFill.height,
         repeat: ImageRepeat.repeat,
         baseVelocity: Vector2(50, 0),
@@ -133,7 +133,7 @@ class MasksweirdGame extends FlameGame
         position: Vector2(size.x / 2 - size.x / 3, size.y - 32),
         background: CircleComponent(
           radius: 50,
-          paint: Paint()..color = AppColors.gradientTitle2.withOpacity(0.5),
+          paint: Paint()..color = AppColors.buttonColor.withOpacity(0.5),
         ),
         knob: CircleComponent(radius: 30),
       );
@@ -157,27 +157,29 @@ class MasksweirdGame extends FlameGame
       final button = ButtonComponent(
         button: CircleComponent(
           radius: 60,
-          paint: Paint()..color = AppColors.gradientTitle2.withOpacity(0.5),
+          paint: Paint()..color = AppColors.buttonColor.withOpacity(0.5),
         ),
         anchor: Anchor.bottomRight,
-        position: Vector2(size.x - 30, size.y - 30),
+        position: Vector2(
+            size.x - AppColors.randomPadding, size.y - AppColors.randomPadding),
         onPressed: player.jump,
       );
       add(button);
       // Create text component for player score.
       _playerScore = TextComponent(
-        position: Vector2(30, 30),
+        position: Vector2(30, AppColors.randomPadding),
         textRenderer: TextPaint(
-          style: const TextStyle(
+          style: TextStyle(
+              background: Paint()..color = AppColors.backColor.withOpacity(0.5),
               letterSpacing: 5,
               fontFamily: 'RobotoSlab',
               fontSize: 22,
-              color: Colors.purpleAccent,
+              color: AppColors.backColor,
               fontWeight: FontWeight.normal),
         ),
       );
       _playerScore2 = TextComponent(
-        position: Vector2(28, 28),
+        position: Vector2(28, AppColors.randomPadding - 2),
         textRenderer: TextPaint(
             style: TextStyle(
                 letterSpacing: 5,
@@ -187,7 +189,7 @@ class MasksweirdGame extends FlameGame
                 foreground: Paint()
                   ..style = PaintingStyle.fill
                   ..strokeWidth = 3
-                  ..color = AppColors.gradientTitle2,
+                  ..color = AppColors.frontColor,
                 fontWeight: FontWeight.normal)),
       );
       // Setting positionType to viewport makes sure that this component
@@ -201,18 +203,19 @@ class MasksweirdGame extends FlameGame
 
       // Create text component for player health.
       _playerHealth = TextComponent(
-        position: Vector2(size.x - 70, 30),
+        position: Vector2(size.x - 70, AppColors.randomPadding),
         textRenderer: TextPaint(
-          style: const TextStyle(
+          style: TextStyle(
+              background: Paint()..color = AppColors.backColor.withOpacity(0.5),
               letterSpacing: 5,
               fontFamily: 'Jost',
               fontSize: 22,
-              color: Colors.pink,
+              color: AppColors.backColor,
               fontWeight: FontWeight.normal),
         ),
       );
       _playerHealth2 = TextComponent(
-        position: Vector2(size.x - 70, 28),
+        position: Vector2(size.x - 70, AppColors.randomPadding - 2),
         textRenderer: TextPaint(
           style: TextStyle(
               letterSpacing: 5,
@@ -221,7 +224,7 @@ class MasksweirdGame extends FlameGame
               foreground: Paint()
                 ..style = PaintingStyle.fill
                 ..strokeWidth = 1
-                ..color = AppColors.gradientTitle2,
+                ..color = Colors.pink,
               fontWeight: FontWeight.normal),
         ),
       );

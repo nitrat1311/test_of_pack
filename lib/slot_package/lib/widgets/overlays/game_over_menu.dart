@@ -32,7 +32,7 @@ class GameOverMenu extends StatelessWidget {
                       foreground: Paint()
                         ..style = PaintingStyle.stroke
                         ..strokeWidth = 4
-                        ..color = AppColors.textColorInsideGame,
+                        ..color = AppColors.frontColor,
                       fontWeight: FontWeight.bold),
                 ),
                 Text(
@@ -43,7 +43,7 @@ class GameOverMenu extends StatelessWidget {
                       foreground: Paint()
                         ..style = PaintingStyle.fill
                         ..strokeWidth = 1
-                        ..color = AppColors.gradientTitle2,
+                        ..color = AppColors.backColor,
                       // color: ,
                       fontWeight: FontWeight.normal),
                 ),
@@ -55,10 +55,10 @@ class GameOverMenu extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               borderRadius: AppColors.borderRadius,
-              border: Border.all(color: AppColors.gradientTitle2, width: 4),
+              border: Border.all(color: AppColors.buttonColor, width: 4),
             ),
             child: FloatingActionButton.large(
-              backgroundColor: AppColors.gradientTitle1,
+              backgroundColor: AppColors.backColor,
               onPressed: () {
                 gameRef.overlays.remove(GameOverMenu.id);
                 gameRef.overlays.add(PauseButton.id);
@@ -67,7 +67,7 @@ class GameOverMenu extends StatelessWidget {
               },
               child: const Icon(
                 Icons.restore,
-                color: AppColors.gradientTitle2,
+                color: AppColors.frontColor,
               ),
             ),
           ),
@@ -76,11 +76,11 @@ class GameOverMenu extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               borderRadius: AppColors.borderRadius,
-              border: Border.all(color: AppColors.gradientTitle2, width: 4),
+              border: Border.all(color: AppColors.buttonColor, width: 4),
             ),
             margin: REdgeInsets.only(top: 30),
             child: FloatingActionButton.large(
-              backgroundColor: AppColors.gradientTitle1,
+              backgroundColor: AppColors.backColor,
               elevation: 20,
               onPressed: () {
                 gameRef.overlays.remove(GameOverMenu.id);
@@ -95,7 +95,7 @@ class GameOverMenu extends StatelessWidget {
               },
               child: const Icon(
                 Icons.exit_to_app,
-                color: AppColors.gradientTitle2,
+                color: AppColors.frontColor,
               ),
             ),
           ),
