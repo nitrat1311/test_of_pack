@@ -2,11 +2,11 @@ library slot_package;
 
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:slot_package/slot_pack/widgets/overlays/game_over_menu.dart';
 
 import 'game/game.dart';
 
 import 'settings_menu.dart';
-import 'widgets/overlays/game_over_menu.dart';
 import 'widgets/overlays/pause_button.dart';
 import 'widgets/overlays/pause_menu.dart';
 
