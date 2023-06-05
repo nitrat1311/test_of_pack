@@ -174,6 +174,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.7.0"
+  flutter_slot_machine:
+    dependency: transitive
+    description:
+      name: flutter_slot_machine
+      sha256: "970be4061f92f1d1f47cf5a6ccd442f3e251041db2ff54af4f64ab8bc4bf0875"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
