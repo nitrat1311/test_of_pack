@@ -15,10 +15,19 @@ class AllyManager extends Component with HasGameRef<MasksweirdGame> {
   }
 
   void spawnAllies() {
-    Vector2 center = Vector2(0, 0);
-    const double radius = 45;
+    final Vector2 center = Vector2(gameRef.size.x - 32, gameRef.size.y / 2);
+    const double radius = 65;
     const int allyCount = 3;
     const double angleIncrement = 2 * pi / allyCount;
+
+    final List<AllyData> allyDataList = [
+      const AllyData(
+          killPoint: 1, speed: 250, spriteId: 1, level: 1, hMove: false),
+      const AllyData(
+          killPoint: 20, speed: 250, spriteId: 1, level: 1, hMove: false),
+      const AllyData(
+          killPoint: 30, speed: 250, spriteId: 1, level: 1, hMove: false),
+    ];
 
     for (int i = 0; i < allyCount; i++) {
       double angle = i * angleIncrement;
@@ -27,29 +36,23 @@ class AllyManager extends Component with HasGameRef<MasksweirdGame> {
         center.y + radius * sin(angle),
       );
 
-      createRotatingAlly(position, angle);
+      AllyData allyData = allyDataList[i];
+
+      createRotatingAlly(position, angle, allyData);
     }
   }
 
-  void createRotatingAlly(Vector2 position, double initialAngle) {
-    const allyData = AllyData(
-      killPoint: 1,
-      speed: 250,
-      spriteId: 1,
-      level: 1,
-      hMove: false,
-    );
-
+  void createRotatingAlly(
+      Vector2 position, double initialAngle, AllyData allyData) {
     final ally = Ally(
-      sprite: sprite,
-      allyData: allyData,
       position: position,
+      allyData: allyData,
+      sprite: sprite,
       size: Vector2(64 * 1.3, 64 * 1.3),
     );
 
     ally.angle = initialAngle;
     allies.add(ally);
-
     gameRef.add(ally);
   }
 
@@ -88,14 +91,4 @@ class AllyManager extends Component with HasGameRef<MasksweirdGame> {
     _timer.stop();
     _timer.start();
   }
-
-  static const List<AllyData> _enemyDataList = [
-    AllyData(
-      killPoint: 1,
-      speed: 250,
-      spriteId: 1,
-      level: 1,
-      hMove: false,
-    ),
-  ];
 }

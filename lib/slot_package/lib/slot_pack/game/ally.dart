@@ -102,8 +102,8 @@ class Ally extends SpriteComponent
     // player's score by 1.
     final command = Command<Player>(action: (player) {
       // Use the correct killPoint to increase player's score.
-
-      player.addToScore(allyData.killPoint * 10);
+      player.changeSpeed(50);
+      player.addToScore(allyData.killPoint * 100);
     });
     gameRef.addCommand(command);
   }

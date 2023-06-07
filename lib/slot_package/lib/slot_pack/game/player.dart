@@ -20,7 +20,7 @@ class Player extends SpriteAnimationComponent
   int _health = 100;
   int _currentScore = 0;
   int get health => _health;
-
+  double _playerSpeed = 200;
   // A reference to PlayerData so that
   JoystickComponent joystick;
 
@@ -97,7 +97,7 @@ class Player extends SpriteAnimationComponent
         gameRef.animationBack.reset();
         gameRef.player.animation = gameRef.animationForward;
       }
-      position.add(Vector2(joystick.relativeDelta.x, 0) * 200 * dt);
+      position.add(Vector2(joystick.relativeDelta.x, 0) * _playerSpeed * dt);
     }
 
     if (playerState == PlayerState.stopped1) {}
@@ -116,7 +116,10 @@ class Player extends SpriteAnimationComponent
     _currentScore += points;
   }
 
-  // Increases health by give amount.
+  void changeSpeed(double speed) {
+    _playerSpeed = speed;
+  }
+
   void increaseHealthBy(int points) {
     _health += points;
     // Clamps health to 100.
