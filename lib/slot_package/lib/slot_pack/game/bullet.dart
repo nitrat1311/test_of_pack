@@ -8,6 +8,7 @@ import '../game/game.dart';
 import '../game/player.dart';
 
 import 'enemy.dart';
+import 'fense.dart';
 
 // This component represent a bullet in game world.
 class Bullet extends SpriteAnimationComponent
@@ -43,13 +44,20 @@ class Bullet extends SpriteAnimationComponent
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
 
-    // If the other Collidable is Enemy, remove this bullet.
-    // if (other is Ally) {
-    //   direction =
-    //       Vector2(-random.nextDouble() - 0.5, -random.nextDouble() + 0.7);
+    if (other is Fense) {
+      removeFromParent();
+      // direction =
+      //     Vector2(-random.nextDouble() - 0.5, -random.nextDouble() + 0.7);
 
-    //   gameRef.player.animation = gameRef.animationBack;
-    // }
+      // gameRef.player.animation = gameRef.animationBack;
+    }
+    if (other is Ally) {
+      removeFromParent();
+      // direction =
+      //     Vector2(-random.nextDouble() - 0.5, -random.nextDouble() + 0.7);
+
+      // gameRef.player.animation = gameRef.animationBack;
+    }
     if (other is Player) {
       removeFromParent();
       // gameRef.player.animation = gameRef.catch_animation;
@@ -78,7 +86,7 @@ class Bullet extends SpriteAnimationComponent
       direction.y = direction.y * -1;
     }
 
-    if (position.x < 0 || position.x > gameRef.size.x - 100) {
+    if (position.x < 0 || position.x > gameRef.size.x) {
       // gameRef.player.increaseHealthBy(-10);
       // gameRef.camera.shake(intensity: 5);
       gameRef.player.addToScore(10);

@@ -4,6 +4,7 @@ import 'package:flame/parallax.dart';
 import 'package:flame/sprite.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:slot_package/slot_pack/game/fense.dart';
 
 import '../../const_colors.dart';
 import '../game/ally.dart';
@@ -31,7 +32,7 @@ class MasksweirdGame extends FlameGame
         HasKeyboardHandlerComponents {
   // Stores a reference to player component.
   late Player player;
-
+  late Fense fence;
   // Stores a reference to the main spritesheet.
   // late SpriteSheet spriteSheet;
   late Sprite sprite;
@@ -54,6 +55,7 @@ class MasksweirdGame extends FlameGame
   late TextComponent _playerHealth;
   late TextComponent _playerHealth2;
   late PositionComponent _healthBar;
+  late PositionComponent _healthBar2;
 
   late final Background _background;
 
@@ -133,6 +135,18 @@ class MasksweirdGame extends FlameGame
         knob: CircleComponent(radius: 28),
       );
       add(joystick);
+      fence = Fense(
+          sprite: sprite,
+          position: Vector2(size.x / 2 + 20, size.y / 2),
+          size: Vector2(64 * 1.3, 64 * 1.3));
+      add(fence);
+
+      _healthBar2 = HealthBar(
+        player: fence,
+        position: Vector2(size.x / 2 + 20, size.y / 2 - 50),
+      );
+
+      add(_healthBar2);
       player = Player(
         joystick: joystick,
         animation: no_fire,
@@ -339,7 +353,7 @@ class MasksweirdGame extends FlameGame
     // First reset player, enemy manager and power-up manager .
     player.reset();
     _enemyManager.reset();
-    // _allyManager.reset();
+    _allyManager.reset();
     player.animation = no_fire;
     children.whereType<Enemy>().forEach((enemy) {
       enemy.removeFromParent();

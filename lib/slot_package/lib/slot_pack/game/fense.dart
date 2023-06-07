@@ -13,7 +13,7 @@ import 'knows_game_size.dart';
 import 'audio_player_component.dart';
 
 // This class represent an enemy component.
-class Ally extends SpriteComponent
+class Fense extends SpriteComponent
     with
         KnowsGameSize,
         CollisionCallbacks,
@@ -29,19 +29,15 @@ class Ally extends SpriteComponent
   // Holds an object of Random class to generate random numbers.
   final _random = Random();
 
-  // The data required to create this enemy.
-  final AllyData allyData;
-
   // Represents health of this enemy.
-  int _hitPoints = 10;
+  int health = 100;
   // Returns a random direction vector with slight angle to +ve y axis.
   Vector2 getRandomVector() {
     return (Vector2.random(_random) - Vector2.random(_random)) * 500;
   }
 
-  Ally({
+  Fense({
     required Sprite? sprite,
-    required this.allyData,
     required Vector2? position,
     required Vector2? size,
   }) : super(sprite: sprite, position: position, size: size) {
@@ -51,10 +47,9 @@ class Ally extends SpriteComponent
     angle = 0;
 
     // Set the current speed from enemyData.
-    _speed = allyData.speed;
+    _speed = 0;
 
     // Set hitpoint to correct value from enemyData.
-    _hitPoints = allyData.level * 10;
   }
 
   @override
@@ -85,7 +80,7 @@ class Ally extends SpriteComponent
 
     if (other is Bullet) {
       // If the other Collidable is Player, destroy.
-      kiss();
+      health -= 10;
       // gameRef.resetAlly();
     }
   }
@@ -96,22 +91,20 @@ class Ally extends SpriteComponent
     // gameRef.addCommand(Command<AudioPlayerComponent>(action: (audioPlayer) {
     //   audioPlayer.playSfx('audio/coin.mp3');
     // }));
-
-    removeFromParent();
-    // Before dying, register a command to increase
-    // player's score by 1.
-    final command = Command<Player>(action: (player) {
-      // Use the correct killPoint to increase player's score.
-
-      player.addToScore(allyData.killPoint * 10);
-    });
-    gameRef.addCommand(command);
   }
 
   @override
   void update(double dt) {
     super.update(dt);
+    if (health == 0) {
+      removeFromParent();
+      final command = Command<Player>(action: (player) {
+        // Use the correct killPoint to increase player's score.
 
+        player.addToScore(100);
+      });
+      gameRef.addCommand(command);
+    }
     // Update the position of this enemy using its speed and delta time.
     // position += moveDirection * _speed * dt;
     // angle = angle + 0.1;
@@ -120,13 +113,7 @@ class Ally extends SpriteComponent
     //   gameRef.size - size / 2,
     // );
     // If the enemy leaves the screen, destroy it.
-    if (position.x > gameRef.size.x) {
-      removeFromParent();
-      gameRef.resetAlly();
-    }
-    if (position.y > gameRef.size.y) {
-      removeFromParent();
-    }
+
     //  else if ((position.x < size.x / 2) ||
     //     (position.x > (gameRef.size.x - size.x / 2))) {
     //   // Enemy is going outside vertical screen bounds, flip its x direction.

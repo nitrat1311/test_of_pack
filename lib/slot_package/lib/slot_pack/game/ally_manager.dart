@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:flame/components.dart';
-import 'package:flame/sprite.dart';
 import '../models/ally_data.dart';
 import 'ally.dart';
 import 'game.dart';
@@ -16,7 +15,7 @@ class AllyManager extends Component with HasGameRef<MasksweirdGame> {
   }
 
   void spawnAllies() {
-    final Vector2 center = Vector2(0, 0);
+    Vector2 center = Vector2(0, 0);
     const double radius = 45;
     const int allyCount = 3;
     const double angleIncrement = 2 * pi / allyCount;
@@ -33,7 +32,7 @@ class AllyManager extends Component with HasGameRef<MasksweirdGame> {
   }
 
   void createRotatingAlly(Vector2 position, double initialAngle) {
-    final allyData = AllyData(
+    const allyData = AllyData(
       killPoint: 1,
       speed: 250,
       spriteId: 1,
@@ -70,12 +69,12 @@ class AllyManager extends Component with HasGameRef<MasksweirdGame> {
   void update(double dt) {
     super.update(dt);
 
-    const double rotationSpeed = 2; // Adjust the rotation speed as desired
+    const double rotationSpeed = 3; // Adjust the rotation speed as desired
 
     for (final ally in allies) {
       ally.angle += dt * rotationSpeed;
-      final Vector2 center = Vector2(gameRef.size.x - 132, gameRef.size.y / 2);
-      const double radius = 45;
+      final Vector2 center = Vector2(gameRef.size.x - 50, gameRef.size.y / 2);
+      const double radius = 30;
       final double angle = ally.angle;
       final double x = center.x + radius * cos(angle);
       final double y = center.y + radius * sin(angle);

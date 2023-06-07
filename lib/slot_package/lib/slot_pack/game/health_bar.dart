@@ -2,10 +2,9 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
 import '../../const_colors.dart';
-import 'player.dart';
 
 class HealthBar extends PositionComponent {
-  final Player player;
+  final dynamic player;
 
   HealthBar({
     required this.player,
