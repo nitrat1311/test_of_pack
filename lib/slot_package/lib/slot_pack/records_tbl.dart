@@ -31,7 +31,8 @@ class RecordsTbl extends StatelessWidget {
     return Scaffold(
       body: Stack(children: [
         Image.asset(
-          'packages/${AppColors.myPackage}/assets/images/menu_back.png',
+          'assets/images/menu_back.png',
+          // 'packages/${AppColors.myPackage}/assets/images/menu_back.png',
           width: 428.w,
           height: 926.h,
           fit: BoxFit.cover,

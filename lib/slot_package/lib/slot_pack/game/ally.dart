@@ -83,11 +83,11 @@ class Ally extends SpriteComponent
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
 
-    if (other is Bullet) {
-      // If the other Collidable is Player, destroy.
-      // kiss();
-      // gameRef.resetAlly();
-    }
+    // if (other is Bullet) {
+    //   // If the other Collidable is Player, destroy.
+    //   // kiss();
+    //   // gameRef.resetAlly();
+    // }
   }
 
   // This method will destory this enemy.
@@ -120,13 +120,13 @@ class Ally extends SpriteComponent
     //   gameRef.size - size / 2,
     // );
     // If the enemy leaves the screen, destroy it.
-    if (position.x > gameRef.size.x) {
-      removeFromParent();
-      gameRef.resetAlly();
-    }
-    if (position.y > gameRef.size.y) {
-      removeFromParent();
-    }
+    // if (position.x > gameRef.size.x) {
+    //   removeFromParent();
+    //   gameRef.resetAlly();
+    // }
+    // if (position.y > gameRef.size.y) {
+    //   removeFromParent();
+    // }
     //  else if ((position.x < size.x / 2) ||
     //     (position.x > (gameRef.size.x - size.x / 2))) {
     //   // Enemy is going outside vertical screen bounds, flip its x direction.

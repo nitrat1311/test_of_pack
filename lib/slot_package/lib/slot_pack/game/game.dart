@@ -44,7 +44,7 @@ class MasksweirdGame extends FlameGame
 
   // Stores a reference to an enemy manager component.
   late EnemyManager _enemyManager;
-  // late AllyManager _allyManager;
+  late AllyManager _allyManager;
 
   // Displays player score on top left.
   late TextComponent _playerScore;
@@ -72,7 +72,8 @@ class MasksweirdGame extends FlameGame
   // Assets loading and adding component should be done here.
   @override
   Future<void> onLoad() async {
-    images.prefix = 'packages/${AppColors.myPackage}/assets/images/';
+    // images.prefix = 'packages/${AppColors.myPackage}/assets/images/';
+
     // Makes the game use a fixed resolution irrespective of the windows size.
     camera.viewport = FixedResolutionViewport(Vector2(540, 960));
 
@@ -84,6 +85,7 @@ class MasksweirdGame extends FlameGame
         'animation_fire.png',
         'animation_right.png',
         'animation_forward.png',
+        'ally.png'
       ]);
 
       _audioPlayerComponent = AudioPlayerComponent();
@@ -91,12 +93,13 @@ class MasksweirdGame extends FlameGame
 
       _background = Background();
       await add(_background);
-
+      sprite = Sprite(images.fromCache('ally.png'));
       no_fire = SpriteSheet.fromColumnsAndRows(
         image: images.fromCache('animation_right.png'),
         columns: 4,
         rows: 1,
       ).createAnimation(from: 0, to: 1, row: 0, stepTime: 0.2, loop: false);
+
       animationBack = SpriteSheet.fromColumnsAndRows(
         image: images.fromCache('animation_forward.png'),
         columns: 6,
@@ -113,7 +116,7 @@ class MasksweirdGame extends FlameGame
         image: images.fromCache('animation_right.png'),
         columns: 4,
         rows: 1,
-      ).createAnimation(from: 0, to: 4, row: 0, stepTime: 0.1, loop: false);
+      ).createAnimation(from: 0, to: 4, row: 0, stepTime: 0.15, loop: false);
       fire = SpriteSheet.fromColumnsAndRows(
         image: images.fromCache('animation_fire.png'),
         columns: 6,
@@ -145,8 +148,8 @@ class MasksweirdGame extends FlameGame
           position: Vector2(size.x - 150, AppColors.randomPadding * 1.5));
       add(_healthBar);
       _enemyManager = EnemyManager(spriteSheet: fire);
-      // _allyManager = AllyManager(sprite: sprite);
-      // add(_allyManager);
+      _allyManager = AllyManager(sprite: sprite);
+      add(_allyManager);
       add(_enemyManager);
       final button = ButtonComponent(
         button: CircleComponent(

@@ -11,7 +11,8 @@ class AudioPlayerComponent extends Component with HasGameRef<MasksweirdGame> {
   Future<void>? onLoad() async {
     FlameAudio.bgm.initialize();
 
-    audioooCache.prefix = 'packages/${AppColors.myPackage}/assets/audio/';
+    // audioooCache.prefix = 'packages/${AppColors.myPackage}/assets/audio/';
+
     await audioooCache.load('music.mp3');
     return super.onLoad();
   }

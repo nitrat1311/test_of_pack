@@ -44,12 +44,12 @@ class Bullet extends SpriteAnimationComponent
     super.onCollision(intersectionPoints, other);
 
     // If the other Collidable is Enemy, remove this bullet.
-    if (other is Ally) {
-      direction =
-          Vector2(-random.nextDouble() - 0.5, -random.nextDouble() + 0.7);
+    // if (other is Ally) {
+    //   direction =
+    //       Vector2(-random.nextDouble() - 0.5, -random.nextDouble() + 0.7);
 
-      gameRef.player.animation = gameRef.animationBack;
-    }
+    //   gameRef.player.animation = gameRef.animationBack;
+    // }
     if (other is Player) {
       removeFromParent();
       // gameRef.player.animation = gameRef.catch_animation;

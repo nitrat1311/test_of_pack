@@ -17,7 +17,8 @@ class SelectCharacter extends StatelessWidget {
     return Scaffold(
       body: Stack(children: [
         Image.asset(
-          'packages/${AppColors.myPackage}/assets/images/show_case.png',
+          'assets/images/show_case.png',
+          // 'packages/${AppColors.myPackage}/assets/images/show_case.png',
           width: 428.w,
           height: 926.h,
           fit: BoxFit.cover,

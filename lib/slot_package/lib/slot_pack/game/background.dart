@@ -61,7 +61,8 @@ class MyParallaxImageData extends ParallaxData {
       repeat: repeat,
       alignment: alignment,
       fill: fill,
-      images: Images(prefix: 'packages/${AppColors.myPackage}/assets/images/'),
+      images: images,
+      // images: Images(prefix: 'packages/${AppColors.myPackage}/assets/images/'),
     );
   }
 }
