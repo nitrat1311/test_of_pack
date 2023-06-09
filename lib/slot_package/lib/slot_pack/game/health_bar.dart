@@ -1,13 +1,15 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:slot_package/slot_pack/game/game.dart';
 
 import '../../const_colors.dart';
+import 'fense.dart';
 
-class HealthBar extends PositionComponent {
-  final dynamic player;
+class HealthBar extends PositionComponent with HasGameRef<MasksweirdGame> {
+  Fense? fence;
 
   HealthBar({
-    required this.player,
+    this.fence,
     super.position,
     super.size,
     super.scale,
@@ -23,7 +25,7 @@ class HealthBar extends PositionComponent {
   void render(Canvas canvas) {
     // Draws a rectangular health bar at top right corner.
     canvas.drawRect(
-      Rect.fromLTWH(-2, 5, player.health.toDouble(), 20),
+      Rect.fromLTWH(-2, 5, fence?.fenceHealth ?? gameRef.health, 20),
       Paint()..color = AppColors.backColor,
     );
     super.render(canvas);

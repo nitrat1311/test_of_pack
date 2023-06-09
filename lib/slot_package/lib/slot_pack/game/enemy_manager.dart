@@ -8,15 +8,16 @@ import 'enemy.dart';
 import 'knows_game_size.dart';
 
 import '../models/enemy_data.dart';
+import 'player.dart';
 
 // This component class takes care of spawning new enemy components
 // randomly from top of the screen. It uses the HasGameRef mixin so that
 // it can add child components.
 class EnemyManager extends Component
-    with KnowsGameSize, HasGameRef<MasksweirdGame> {
+    with KnowsGameSize, HasGameRef<MasksweirdGame>, ParentIsA<Level1Page> {
   // The timer which runs the enemy spawner code at regular interval of time.
   late Timer _timer;
-
+  final Player player;
   // Controls for how long EnemyManager should stop spawning new enemies.
   late Timer _freezeTimer;
 
@@ -26,7 +27,7 @@ class EnemyManager extends Component
   // Holds an object of Random class to generate random numbers.
   Random random = Random();
 
-  EnemyManager({required this.spriteSheet}) : super() {
+  EnemyManager({required this.spriteSheet, required this.player}) : super() {
     // Sets the timer to call _spawnEnemy() after every 1 second, until timer is explicitly stops.
     _timer = Timer(0.9, onTick: _spawnEnemy, repeat: true);
 
@@ -55,7 +56,7 @@ class EnemyManager extends Component
     if (gameRef.buildContext != null) {
       // Get current score and figure out the max level of enemy that
       // can be spawned for this score.
-      int currentScore = gameRef.player.score;
+      int currentScore = gameRef.currentScore;
       int maxLevel = mapScoreToMaxEnemyLevel(currentScore);
 
       /// Gets a random [EnemyData] object from the list.
@@ -66,6 +67,7 @@ class EnemyManager extends Component
         size: initialSize,
         position: position,
         enemyData: enemyData,
+        player: this.player,
       );
 
       // Makes sure that the enemy sprite is centered.

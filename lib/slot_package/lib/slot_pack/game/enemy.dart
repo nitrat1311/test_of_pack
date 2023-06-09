@@ -16,6 +16,7 @@ import 'audio_player_component.dart';
 // This class represent an enemy component.
 class Enemy extends SpriteAnimationComponent
     with KnowsGameSize, CollisionCallbacks, HasGameRef<MasksweirdGame> {
+  final Player player;
   // The speed of this enemy.
   double _speed = 250;
 
@@ -46,6 +47,7 @@ class Enemy extends SpriteAnimationComponent
   // Returns a random direction vector with slight angle to +ve y axis.
 
   Enemy({
+    required this.player,
     required SpriteAnimation? animation,
     required this.enemyData,
     required Vector2? position,
@@ -99,8 +101,8 @@ class Enemy extends SpriteAnimationComponent
     super.onCollision(intersectionPoints, other);
 
     if (other is Player &&
-        !gameRef.player.animation!.isLastFrame &&
-        gameRef.player.animation == gameRef.animationRight) {
+        !other.animation!.isLastFrame &&
+        other.animation == other.animationRight) {
       // If the other Collidable is Player, destroy.
       removeFromParent();
       // destroy();
@@ -112,18 +114,13 @@ class Enemy extends SpriteAnimationComponent
   }
 
   // This method will destory this enemy.
-  void destroy() {
+  void destroy() async {
     // Ask audio player to play enemy destroy effect.
     // gameRef.addCommand(Command<AudioPlayerComponent>(action: (audioPlayer) {
     //   audioPlayer.playSfx('audio/extinguish.mp3');
     // }));
     removeFromParent();
     gameRef.camera.shake(intensity: 5);
-    final command = Command<Player>(action: (player) {
-      // Use the correct killPoint to increase player's score.
-      player.increaseHealthBy(-10);
-    });
-    gameRef.addCommand(command);
 
     // Generate 20 white circle particles with random speed and acceleration,
     // at current position of this enemy. Each particles lives for exactly
@@ -149,7 +146,9 @@ class Enemy extends SpriteAnimationComponent
 
   void destroyMe() {
     removeFromParent();
-    gameRef.player.addToScore(enemyData.killPoint);
+
+    // Use the correct killPoint to increase player's score.
+    gameRef.currentScore += (enemyData.killPoint);
 
     // Generate 20 white circle particles with random speed and acceleration,
     // at current position of this enemy. Each particles lives for exactly
@@ -194,7 +193,8 @@ class Enemy extends SpriteAnimationComponent
     // }
     // If the enemy leaves the screen, destroy it.
     if (position.y > gameRef.size.y) {
-      // gameRef.player.increaseHealthBy(-10);
+      gameRef.health += -10;
+
       // gameRef.camera.shake(intensity: 5);
       // removeFromParent();
       destroy();

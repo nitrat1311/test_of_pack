@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/sprite.dart';
 import '../game/bullet.dart';
 
 import 'game.dart';
@@ -15,16 +18,50 @@ class Player extends SpriteAnimationComponent
         CollisionCallbacks,
         HasGameRef<MasksweirdGame>,
         KeyboardHandler {
+  late SpriteAnimation animationBack;
+  late SpriteAnimation animationForward;
+  late SpriteAnimation animationRight;
+  late SpriteAnimation animation5;
+  late SpriteAnimation no_fire;
+  late SpriteAnimation fire;
+  @override
+  FutureOr<void> onLoad() {
+    fire = SpriteSheet.fromColumnsAndRows(
+      image: gameRef.images.fromCache('animation_fire.png'),
+      columns: 6,
+      rows: 1,
+    ).createAnimation(from: 0, to: 5, row: 0, stepTime: 0.25, loop: true);
+    no_fire = SpriteSheet.fromColumnsAndRows(
+      image: gameRef.images.fromCache('animation_right.png'),
+      columns: 4,
+      rows: 1,
+    ).createAnimation(from: 0, to: 1, row: 0, stepTime: 0.2, loop: false);
+    animationBack = SpriteSheet.fromColumnsAndRows(
+      image: gameRef.images.fromCache('animation_forward.png'),
+      columns: 6,
+      rows: 1,
+    )
+        .createAnimation(from: 0, to: 6, row: 0, stepTime: 0.15, loop: true)
+        .reversed();
+    animationForward = SpriteSheet.fromColumnsAndRows(
+      image: gameRef.images.fromCache('animation_forward.png'),
+      columns: 6,
+      rows: 1,
+    ).createAnimation(from: 0, to: 6, row: 0, stepTime: 0.15, loop: true);
+    animationRight = SpriteSheet.fromColumnsAndRows(
+      image: gameRef.images.fromCache('animation_right.png'),
+      columns: 4,
+      rows: 1,
+    ).createAnimation(from: 0, to: 4, row: 0, stepTime: 0.15, loop: false);
+
+    return super.onLoad();
+  }
+
   PlayerState playerState = PlayerState.zero;
   // Player health.
-  int _health = 100;
-  int _currentScore = 0;
-  int get health => _health;
-  double _playerSpeed = 200;
+
   // A reference to PlayerData so that
   JoystickComponent joystick;
-
-  int get score => _currentScore;
 
   Player({
     required this.joystick,
@@ -53,19 +90,17 @@ class Player extends SpriteAnimationComponent
     super.onCollision(intersectionPoints, other);
 
     if (other is Enemy &&
-        !gameRef.player.animation!.isLastFrame &&
-        gameRef.player.animation == gameRef.animationRight) {
+        animation == animationRight &&
+        !animation!.isLastFrame) {
       // Make the camera shake, with custom intensity.
 
-      Bullet bullet = Bullet(
-          animation: gameRef.fire,
-          size: Vector2(104 / 2, 101 / 2),
-          position: Vector2(
-              gameRef.player.position.x + 32, gameRef.player.position.y + 62));
-
       // Anchor it to center and add to game world.
-      bullet.anchor = Anchor.bottomCenter;
 
+      Bullet bullet = Bullet(
+          animation: fire,
+          size: Vector2(104 / 2, 101 / 2),
+          position: Vector2(position.x + 32, position.y + 62));
+      bullet.anchor = Anchor.bottomCenter;
       gameRef.add(bullet);
 
       //   _health -= 10;
@@ -84,20 +119,21 @@ class Player extends SpriteAnimationComponent
     // }
     if (joystick.delta.x == 0) {
       // gameRef.animationRight.reset();
-      gameRef.animationForward.reset();
-      gameRef.animationBack.reset();
-      gameRef.player.animation?.done();
+      animationForward.reset();
+      animationBack.reset();
+      animation?.done();
     }
     if (!joystick.delta.isZero()) {
       if (joystick.delta.x < 0) {
-        gameRef.animationForward.reset();
-        gameRef.player.animation = gameRef.animationBack;
+        animationForward.reset();
+        animation = animationBack;
       }
       if (joystick.delta.x > 0) {
-        gameRef.animationBack.reset();
-        gameRef.player.animation = gameRef.animationForward;
+        animationBack.reset();
+        animation = animationForward;
       }
-      position.add(Vector2(joystick.relativeDelta.x, 0) * _playerSpeed * dt);
+      position
+          .add(Vector2(joystick.relativeDelta.x, 0) * gameRef.playerSpeed * dt);
     }
 
     if (playerState == PlayerState.stopped1) {}
@@ -113,33 +149,33 @@ class Player extends SpriteAnimationComponent
   // Adds given points to player score
   /// and also add it to [PlayerData.money].
   void addToScore(int points) {
-    _currentScore += points;
+    gameRef.currentScore += points;
   }
 
   void changeSpeed(double speed) {
-    _playerSpeed = speed;
+    gameRef.playerSpeed = speed;
   }
 
   void increaseHealthBy(int points) {
-    _health += points;
+    gameRef.health += points;
     // Clamps health to 100.
-    if (_health > 100) {
-      _health = 100;
+    if (gameRef.health > 100) {
+      gameRef.health = 100;
     }
   }
 
   // Resets player score, health and position. Should be called
   // while restarting and exiting the game.
   void reset() {
-    _currentScore = 0;
-    _health = 100;
+    gameRef.currentScore = 0;
+    gameRef.health = 100;
     // position = gameRef.size / 2;
   }
 
   void jump() async {
     playerState = PlayerState.jumping;
-    gameRef.no_fire.reset();
-    gameRef.player.animation = gameRef.animationRight;
+    no_fire.reset();
+    animation = animationRight;
     // gameRef.animationRight.reset();
     // gameRef.animationForward.reset();
     // gameRef.animationBack.reset();
@@ -151,10 +187,10 @@ class Player extends SpriteAnimationComponent
     //   playerState = PlayerState.stopped2;
     // } else
     if (playerState == PlayerState.jumping) {
-      gameRef.no_fire.reset();
-      gameRef.animationRight.reset();
-      gameRef.animationForward.reset();
-      gameRef.animationBack.reset();
+      no_fire.reset();
+      animationRight.reset();
+      animationForward.reset();
+      animationBack.reset();
 
       playerState = PlayerState.stopped1;
     }

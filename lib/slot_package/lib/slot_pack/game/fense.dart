@@ -30,7 +30,8 @@ class Fense extends SpriteComponent
   final _random = Random();
 
   // Represents health of this enemy.
-  int health = 100;
+  double _fenceHealth = 100;
+  double get fenceHealth => _fenceHealth;
   // Returns a random direction vector with slight angle to +ve y axis.
   Vector2 getRandomVector() {
     return (Vector2.random(_random) - Vector2.random(_random)) * 500;
@@ -80,7 +81,7 @@ class Fense extends SpriteComponent
 
     if (other is Bullet) {
       // If the other Collidable is Player, destroy.
-      health -= 10;
+      _fenceHealth -= 10;
       // gameRef.resetAlly();
     }
   }
@@ -96,7 +97,7 @@ class Fense extends SpriteComponent
   @override
   void update(double dt) {
     super.update(dt);
-    if (health == 0) {
+    if (fenceHealth == 0) {
       removeFromParent();
       final command = Command<Player>(action: (player) {
         // Use the correct killPoint to increase player's score.
