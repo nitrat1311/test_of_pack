@@ -24,32 +24,38 @@ class Player extends SpriteAnimationComponent
   late SpriteAnimation animation5;
   late SpriteAnimation no_fire;
   late SpriteAnimation fire;
+
+  final String fireImgPath;
+
+  final String animationRightPath;
+
+  final String animationForwardPath;
   @override
   FutureOr<void> onLoad() {
     fire = SpriteSheet.fromColumnsAndRows(
-      image: gameRef.images.fromCache('animation_fire.png'),
+      image: gameRef.images.fromCache(fireImgPath),
       columns: 6,
       rows: 1,
     ).createAnimation(from: 0, to: 5, row: 0, stepTime: 0.25, loop: true);
     no_fire = SpriteSheet.fromColumnsAndRows(
-      image: gameRef.images.fromCache('animation_right.png'),
+      image: gameRef.images.fromCache(animationRightPath),
       columns: 4,
       rows: 1,
     ).createAnimation(from: 0, to: 1, row: 0, stepTime: 0.2, loop: false);
     animationBack = SpriteSheet.fromColumnsAndRows(
-      image: gameRef.images.fromCache('animation_forward.png'),
+      image: gameRef.images.fromCache(animationForwardPath),
       columns: 6,
       rows: 1,
     )
         .createAnimation(from: 0, to: 6, row: 0, stepTime: 0.15, loop: true)
         .reversed();
     animationForward = SpriteSheet.fromColumnsAndRows(
-      image: gameRef.images.fromCache('animation_forward.png'),
+      image: gameRef.images.fromCache(animationForwardPath),
       columns: 6,
       rows: 1,
     ).createAnimation(from: 0, to: 6, row: 0, stepTime: 0.15, loop: true);
     animationRight = SpriteSheet.fromColumnsAndRows(
-      image: gameRef.images.fromCache('animation_right.png'),
+      image: gameRef.images.fromCache(animationRightPath),
       columns: 4,
       rows: 1,
     ).createAnimation(from: 0, to: 4, row: 0, stepTime: 0.15, loop: false);
@@ -64,6 +70,9 @@ class Player extends SpriteAnimationComponent
   JoystickComponent joystick;
 
   Player({
+    required this.fireImgPath,
+    required this.animationRightPath,
+    required this.animationForwardPath,
     required this.joystick,
     SpriteAnimation? animation,
     Vector2? position,

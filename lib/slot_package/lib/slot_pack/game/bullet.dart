@@ -60,23 +60,10 @@ class Bullet extends SpriteAnimationComponent
     }
     if (other is Player) {
       removeFromParent();
-      // gameRef.player.animation = gameRef.catch_animation;
-      final command = Command<Player>(action: (player) {
-        // Use the correct killPoint to increase player's score.
 
-        player.addToScore(10);
-      });
-      gameRef.addCommand(command);
       gameRef.resetAlly();
     }
     if (other is Enemy) {
-      final command = Command<Player>(action: (player) {
-        // Use the correct killPoint to increase player's score.
-
-        player.increaseHealthBy(-10);
-      });
-      gameRef.addCommand(command);
-
       removeFromParent();
       gameRef.camera.shake(intensity: 5);
     }
@@ -93,21 +80,7 @@ class Bullet extends SpriteAnimationComponent
     }
 
     if (position.x < 0 || position.x > gameRef.size.x) {
-      // gameRef.player.increaseHealthBy(-10);
-      // gameRef.camera.shake(intensity: 5);
-      final command = Command<Player>(action: (player) {
-        // Use the correct killPoint to increase player's score.
-
-        player.addToScore(10);
-      });
-      gameRef.addCommand(command);
-
       removeFromParent();
     }
-    // if (position.y < 0 || position.x > gameRef.size.y) {
-    //   gameRef.player.increaseHealthBy(-10);
-    //   gameRef.camera.shake(intensity: 5);
-    //   removeFromParent();
-    // }
   }
 }

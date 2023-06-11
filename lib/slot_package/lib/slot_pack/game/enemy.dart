@@ -204,11 +204,4 @@ class Enemy extends SpriteAnimationComponent
       moveDirection.x *= -1;
     }
   }
-
-  // Pauses enemy for 2 seconds when called.
-  void freeze() {
-    _speed = 0;
-    _freezeTimer.stop();
-    _freezeTimer.start();
-  }
 }

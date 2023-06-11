@@ -8,6 +8,10 @@ import 'package:flutter/material.dart';
 import '../../const_colors.dart';
 
 class Background extends ParallaxComponent {
+  final String gameBackPath;
+
+  Background({required this.gameBackPath});
+
   @override
   Future<void>? onLoad() async {
     final layers = await Future.wait<ParallaxLayer>([
@@ -22,7 +26,7 @@ class Background extends ParallaxComponent {
   }
 
   Future<ParallaxLayer> get backGroundSnow => gameRef.loadParallaxLayer(
-        MyParallaxImageData('game_back.png'),
+        MyParallaxImageData(gameBackPath),
         fill: LayerFill.width,
         velocityMultiplier: Vector2(0.5, 0.0),
       );

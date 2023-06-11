@@ -98,14 +98,6 @@ class Ally extends SpriteComponent
     // }));
 
     removeFromParent();
-    // Before dying, register a command to increase
-    // player's score by 1.
-    final command = Command<Player>(action: (player) {
-      // Use the correct killPoint to increase player's score.
-      player.changeSpeed(50);
-      player.addToScore(allyData.killPoint * 100);
-    });
-    gameRef.addCommand(command);
   }
 
   @override

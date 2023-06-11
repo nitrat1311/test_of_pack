@@ -6,6 +6,8 @@ import 'package:flame/input.dart';
 import '../game/bullet.dart';
 
 import '../models/ally_data.dart';
+import '../widgets/overlays/pause_button.dart';
+import '../widgets/overlays/pause_menu.dart';
 import 'game.dart';
 import 'player.dart';
 import 'command.dart';
@@ -14,11 +16,7 @@ import 'audio_player_component.dart';
 
 // This class represent an enemy component.
 class Fense extends SpriteComponent
-    with
-        KnowsGameSize,
-        CollisionCallbacks,
-        // Tappable,
-        HasGameRef<MasksweirdGame> {
+    with KnowsGameSize, CollisionCallbacks, HasGameRef<MasksweirdGame> {
   // The speed of this enemy.
   double _speed = 250;
 
@@ -28,7 +26,6 @@ class Fense extends SpriteComponent
 
   // Holds an object of Random class to generate random numbers.
   final _random = Random();
-
   // Represents health of this enemy.
   double _fenceHealth = 100;
   double get fenceHealth => _fenceHealth;
@@ -83,6 +80,12 @@ class Fense extends SpriteComponent
       // If the other Collidable is Player, destroy.
       _fenceHealth -= 10;
       // gameRef.resetAlly();
+      if (_fenceHealth == 10) {
+        gameRef.reset();
+
+        gameRef.isReset = false;
+        gameRef.router.pushReplacementNamed('level2');
+      }
     }
   }
 
@@ -99,13 +102,8 @@ class Fense extends SpriteComponent
     super.update(dt);
     if (fenceHealth == 0) {
       removeFromParent();
-      final command = Command<Player>(action: (player) {
-        // Use the correct killPoint to increase player's score.
-
-        player.addToScore(100);
-      });
-      gameRef.addCommand(command);
     }
+
     // Update the position of this enemy using its speed and delta time.
     // position += moveDirection * _speed * dt;
     // angle = angle + 0.1;
@@ -120,5 +118,9 @@ class Fense extends SpriteComponent
     //   // Enemy is going outside vertical screen bounds, flip its x direction.
     //   moveDirection.x *= -1;
     // }
+  }
+
+  void fenseReset() {
+    _fenceHealth = 100;
   }
 }

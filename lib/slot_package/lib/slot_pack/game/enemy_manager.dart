@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:flame/sprite.dart';
 import 'package:flame/components.dart';
 
 import 'game.dart';
@@ -14,14 +13,12 @@ import 'player.dart';
 // randomly from top of the screen. It uses the HasGameRef mixin so that
 // it can add child components.
 class EnemyManager extends Component
-    with KnowsGameSize, HasGameRef<MasksweirdGame>, ParentIsA<Level1Page> {
+    with KnowsGameSize, HasGameRef<MasksweirdGame> {
   // The timer which runs the enemy spawner code at regular interval of time.
   late Timer _timer;
   final Player player;
   // Controls for how long EnemyManager should stop spawning new enemies.
-  late Timer _freezeTimer;
 
-  // A reference to spriteSheet contains enemy sprites.
   SpriteAnimation spriteSheet;
 
   // Holds an object of Random class to generate random numbers.
@@ -30,11 +27,6 @@ class EnemyManager extends Component
   EnemyManager({required this.spriteSheet, required this.player}) : super() {
     // Sets the timer to call _spawnEnemy() after every 1 second, until timer is explicitly stops.
     _timer = Timer(0.9, onTick: _spawnEnemy, repeat: true);
-
-    // Sets freeze time to 2 seconds. After 2 seconds spawn timer will start again.
-    _freezeTimer = Timer(2, onTick: () {
-      _timer.start();
-    });
   }
 
   // Spawns a new enemy at random position at the top of the screen.
@@ -67,7 +59,7 @@ class EnemyManager extends Component
         size: initialSize,
         position: position,
         enemyData: enemyData,
-        player: this.player,
+        player: player,
       );
 
       // Makes sure that the enemy sprite is centered.
@@ -112,7 +104,6 @@ class EnemyManager extends Component
     super.update(dt);
     // Update timers with delta time to make them tick.
     _timer.update(dt);
-    _freezeTimer.update(dt);
   }
 
   // Stops and restarts the timer. Should be called
@@ -120,13 +111,6 @@ class EnemyManager extends Component
   void reset() {
     _timer.stop();
     _timer.start();
-  }
-
-  // Pauses spawn timer for 2 seconds when called.
-  void freeze() {
-    _timer.stop();
-    _freezeTimer.stop();
-    _freezeTimer.start();
   }
 
   /// A private list of all [EnemyData]s.
