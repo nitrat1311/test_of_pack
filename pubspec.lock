@@ -240,14 +240,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.0"
-  neon:
-    dependency: transitive
-    description:
-      name: neon
-      sha256: "9cf65613109177a1927f77a4f683fa0251b9694d8726d8787f39b48557f8cd03"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.0"
   nested:
     dependency: transitive
     description:
@@ -316,10 +308,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_windows
-      sha256: d3f80b32e83ec208ac95253e0cd4d298e104fbc63cb29c5c69edaed43b0c69d6
+      sha256: "1cb68ba4cd3a795033de62ba1b7b4564dace301f952de6bfb3cd91b202b6ee96"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.6"
+    version: "2.1.7"
   platform:
     dependency: transitive
     description:
@@ -360,9 +352,11 @@ packages:
   slot_package:
     dependency: "direct main"
     description:
-      path: "lib/slot_package"
-      relative: true
-    source: path
+      path: "."
+      ref: legendary-slide-brazil
+      resolved-ref: "1d22b0f89d8275102a1252806f8fe795664e626b"
+      url: "https://github.com/nitrat1311/slot_pack.git"
+    source: git
     version: "0.0.1"
   source_span:
     dependency: transitive

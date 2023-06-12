@@ -148,8 +148,8 @@ class MasksweirdGame extends FlameGame
       // Makes sure that the sprite is centered.
       player.anchor = Anchor.center;
       add(player);
-      _healthBar =
-          HealthBar(player: player, position: Vector2(size.x - 150, 55));
+      _healthBar = HealthBar(
+          player: player, position: Vector2(size.x - 150, size.y - 250));
       add(_healthBar);
       _allyManager = AllyManager(spriteSheet: spriteSheet);
       add(_allyManager);
@@ -167,7 +167,7 @@ class MasksweirdGame extends FlameGame
       add(button);
       // Create text component for player score.
       _playerScore = TextComponent(
-        position: Vector2(30, AppColors.randomPadding),
+        position: Vector2(30, size.y - 250),
         textRenderer: TextPaint(
           style: TextStyle(
               background: Paint()..color = AppColors.backColor.withOpacity(0.5),
@@ -179,7 +179,7 @@ class MasksweirdGame extends FlameGame
         ),
       );
       _playerScore2 = TextComponent(
-        position: Vector2(28, AppColors.randomPadding - 2),
+        position: Vector2(28, size.y - 250 - 2),
         textRenderer: TextPaint(
             style: TextStyle(
                 letterSpacing: 5,
@@ -203,7 +203,7 @@ class MasksweirdGame extends FlameGame
 
       // Create text component for player health.
       _playerHealth = TextComponent(
-        position: Vector2(size.x - 70, AppColors.randomPadding),
+        position: Vector2(size.x - 70, size.y - 180),
         textRenderer: TextPaint(
           style: TextStyle(
               background: Paint()..color = AppColors.backColor.withOpacity(0.5),
@@ -215,7 +215,7 @@ class MasksweirdGame extends FlameGame
         ),
       );
       _playerHealth2 = TextComponent(
-        position: Vector2(size.x - 70, AppColors.randomPadding - 2),
+        position: Vector2(size.x - 70, size.y - 180 - 2),
         textRenderer: TextPaint(
           style: TextStyle(
               letterSpacing: 5,

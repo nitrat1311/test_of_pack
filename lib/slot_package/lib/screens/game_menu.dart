@@ -25,7 +25,8 @@ class GameMenu extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
     );
-    const double angle = AppColors.randomPadding / 200;
+    // const double angle = AppColors.randomPadding / 25;
+    const double angle = 0.1;
 
     return Scaffold(
       body: Stack(children: [
@@ -42,7 +43,7 @@ class GameMenu extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(height: AppColors.randomPadding * 2),
+                  // const SizedBox(height: AppColors.randomPadding * 2),
                   Transform.rotate(
                     angle: angle,
                     child: GestureDetector(
@@ -60,6 +61,29 @@ class GameMenu extends StatelessWidget {
                               color: AppColors.textButtonMenu, fontSize: 30.sp),
                         ),
                       ),
+                    ),
+                  ),
+                  Padding(
+                    padding: REdgeInsets.fromLTRB(
+                        0, 5 + AppColors.randomPadding, 0, 0),
+                    child: AutoSizeText(
+                      AppColors.appLable,
+                      wrapWords: false,
+                      maxLines: 1,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          foreground: Paint()..color = AppColors.frontColor,
+                          background: Paint()
+                            ..color = AppColors.backColor.withOpacity(0.5),
+                          fontSize: 50,
+                          fontWeight: FontWeight.normal,
+                          shadows: const [
+                            Shadow(
+                              offset: Offset(3, 3.0),
+                              blurRadius: 8,
+                              color: AppColors.backColor,
+                            ),
+                          ]),
                     ),
                   ),
                   SizedBox(
@@ -102,29 +126,6 @@ class GameMenu extends StatelessWidget {
                               color: AppColors.textButtonMenu, fontSize: 30.sp),
                         ),
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding: REdgeInsets.fromLTRB(
-                        0, 5 + AppColors.randomPadding, 0, 0),
-                    child: AutoSizeText(
-                      AppColors.appLable,
-                      wrapWords: false,
-                      maxLines: 1,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          foreground: Paint()..color = AppColors.frontColor,
-                          background: Paint()
-                            ..color = AppColors.backColor.withOpacity(0.5),
-                          fontSize: 50,
-                          fontWeight: FontWeight.normal,
-                          shadows: const [
-                            Shadow(
-                              offset: Offset(3, 3.0),
-                              blurRadius: 8,
-                              color: AppColors.backColor,
-                            ),
-                          ]),
                     ),
                   ),
                 ],

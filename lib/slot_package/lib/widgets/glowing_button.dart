@@ -24,8 +24,8 @@ class GlowingButtonState extends State<GlowingButton> {
     return Container(
       margin: REdgeInsets.symmetric(vertical: AppColors.randomPadding / 2),
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.buttonColor, width: 4),
-        borderRadius: BorderRadius.circular(75),
+        border: Border.all(color: AppColors.buttonColor, width: 3),
+        borderRadius: BorderRadius.circular(2),
         gradient: const LinearGradient(
           colors: [
             AppColors.frontColor,

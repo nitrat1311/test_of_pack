@@ -55,52 +55,6 @@ class _SettingsMenuState extends State<SettingsMenu> {
                     ),
                   ),
                   SizedBox(height: 20.h),
-                  SwitchListTile(
-                    activeColor: AppColors.frontColor,
-                    title: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(65.0),
-                        border: Border.all(
-                          color: AppColors.buttonColor,
-                          width: 4.0,
-                        ),
-                        color: AppColors.backColor,
-                      ),
-                      child: Container(
-                          padding: REdgeInsets.symmetric(horizontal: 16.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15.0),
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Colors.black.withOpacity(0.2),
-                                Colors.transparent,
-                              ],
-                            ),
-                          ),
-                          child: Center(
-                            child: AutoSizeText(
-                              'Sound',
-                              maxLines: 1,
-                              minFontSize: 9,
-                              style: TextStyle(
-                                  fontSize: 25.sp,
-                                  color: Colors.white,
-                                  letterSpacing: 5.sp),
-                            ),
-                          )),
-                    ),
-                    value: soundEffects,
-                    onChanged: (newValue) {
-                      soundEffects = newValue;
-                      AppState().soundEffects = newValue;
-                      setState(() {});
-                    },
-                  ),
-
-                  // Switch for background music.
-                  SizedBox(height: 25.h),
 
                   SwitchListTile(
                     activeColor: AppColors.frontColor,
@@ -141,6 +95,51 @@ class _SettingsMenuState extends State<SettingsMenu> {
                     onChanged: (newValue) {
                       backgroundMusic = newValue;
                       AppState().backgroundMusic = newValue;
+                      setState(() {});
+                    },
+                  ),
+                  // Switch for background music.
+                  SizedBox(height: 25.h),
+                  SwitchListTile(
+                    activeColor: AppColors.frontColor,
+                    title: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(65.0),
+                        border: Border.all(
+                          color: AppColors.buttonColor,
+                          width: 4.0,
+                        ),
+                        color: AppColors.backColor,
+                      ),
+                      child: Container(
+                          padding: REdgeInsets.symmetric(horizontal: 16.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15.0),
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.black.withOpacity(0.2),
+                                Colors.transparent,
+                              ],
+                            ),
+                          ),
+                          child: Center(
+                            child: AutoSizeText(
+                              'Sound',
+                              maxLines: 1,
+                              minFontSize: 9,
+                              style: TextStyle(
+                                  fontSize: 25.sp,
+                                  color: Colors.white,
+                                  letterSpacing: 5.sp),
+                            ),
+                          )),
+                    ),
+                    value: soundEffects,
+                    onChanged: (newValue) {
+                      soundEffects = newValue;
+                      AppState().soundEffects = newValue;
                       setState(() {});
                     },
                   ),
