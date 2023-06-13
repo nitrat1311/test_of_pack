@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../const/colors.dart';
+import 'package:slot_package/const_colors.dart';
 import '../../game/game.dart';
-import '../../screens/game_menu.dart';
+
+import '../../game_menu.dart';
 import 'pause_button.dart';
 
 // This class represents the game over menu overlay.
@@ -32,7 +33,7 @@ class GameOverMenu extends StatelessWidget {
                       foreground: Paint()
                         ..style = PaintingStyle.stroke
                         ..strokeWidth = 4
-                        ..color = AppColors.frontColor,
+                        ..color = AppColors.backColor,
                       fontWeight: FontWeight.bold),
                 ),
                 Text(
@@ -43,7 +44,7 @@ class GameOverMenu extends StatelessWidget {
                       foreground: Paint()
                         ..style = PaintingStyle.fill
                         ..strokeWidth = 1
-                        ..color = AppColors.backColor,
+                        ..color = AppColors.frontColor,
                       // color: ,
                       fontWeight: FontWeight.normal),
                 ),

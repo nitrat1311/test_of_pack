@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../const/colors.dart';
+import 'package:slot_package/const_colors.dart';
 
 class GlowingButton extends StatefulWidget {
   final Widget child;
@@ -22,14 +22,18 @@ class GlowingButtonState extends State<GlowingButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: REdgeInsets.symmetric(vertical: AppColors.randomPadding / 3),
+      margin: REdgeInsets.symmetric(vertical: AppColors.randomPadding / 10),
+      // width: MediaQuery.of(context).size.width / 1.5,
+      // height: MediaQuery.of(context).size.height / 12,
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.buttonColor, width: 3),
-        borderRadius: BorderRadius.circular(21),
+        border:
+            Border.all(color: const Color.fromARGB(255, 20, 19, 19), width: 4),
+        borderRadius:
+            const BorderRadius.horizontal(left: Radius.elliptical(10, 50)),
         gradient: const LinearGradient(
           colors: [
-            AppColors.frontColor,
             AppColors.backColor,
+            AppColors.frontColor,
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -45,8 +49,7 @@ class GlowingButtonState extends State<GlowingButton> {
       ),
       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         Padding(
-            padding: const EdgeInsets.fromLTRB(
-                0, AppColors.randomPadding / 2, 0, AppColors.randomPadding / 3),
+            padding: const EdgeInsets.fromLTRB(0, 10, 0, 15),
             child: widget.child),
       ]),
     );

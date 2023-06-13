@@ -1,12 +1,13 @@
 import 'dart:math';
+
+import 'package:flame/sprite.dart';
 import 'package:flame/components.dart';
 
-import '../app_state.dart';
 import 'game.dart';
 import 'enemy.dart';
 import 'knows_game_size.dart';
 
-import '../../models/enemy_data.dart';
+import '../models/enemy_data.dart';
 
 // This component class takes care of spawning new enemy components
 // randomly from top of the screen. It uses the HasGameRef mixin so that

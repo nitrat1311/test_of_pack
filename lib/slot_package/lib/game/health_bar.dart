@@ -1,6 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
-import '../../const/colors.dart';
+import 'package:slot_package/const_colors.dart';
 
 import 'player.dart';
 
@@ -25,7 +25,7 @@ class HealthBar extends PositionComponent {
     // Draws a rectangular health bar at top right corner.
     canvas.drawRect(
       Rect.fromLTWH(-2, 5, player.health.toDouble(), 20),
-      Paint()..color = Colors.pink,
+      Paint()..color = AppColors.backColor,
     );
     super.render(canvas);
   }

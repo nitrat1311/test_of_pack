@@ -2,15 +2,15 @@ import 'dart:math';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/input.dart';
 import '../game/bullet.dart';
 
+import '../models/ally_data.dart';
 import 'game.dart';
 import 'player.dart';
 import 'command.dart';
 import 'knows_game_size.dart';
 import 'audio_player_component.dart';
-
-import '../../models/ally_data.dart';
 
 // This class represent an enemy component.
 class Ally extends SpriteComponent
@@ -20,19 +20,20 @@ class Ally extends SpriteComponent
         // Tappable,
         HasGameRef<MasksweirdGame> {
   // The speed of this enemy.
-  double _speed = 350;
+  double _speed = 250;
 
   // This direction in which this Enemy will move.
   // Defaults to vertically downwards.
-  Vector2 moveDirection = Vector2(-1, 0);
+  // Vector2 moveDirection = Vector2(1, 0);
 
   // Holds an object of Random class to generate random numbers.
   final _random = Random();
 
   // The data required to create this enemy.
   final AllyData allyData;
+
   // Represents health of this enemy.
-  // int _hitPoints = 10;
+  int _hitPoints = 10;
   // Returns a random direction vector with slight angle to +ve y axis.
   Vector2 getRandomVector() {
     return (Vector2.random(_random) - Vector2.random(_random)) * 500;
@@ -53,7 +54,7 @@ class Ally extends SpriteComponent
     _speed = allyData.speed;
 
     // Set hitpoint to correct value from enemyData.
-    // _hitPoints = allyData.level * 10;
+    _hitPoints = allyData.level * 10;
   }
 
   @override
@@ -63,10 +64,10 @@ class Ally extends SpriteComponent
     // Adding a circular hitbox with radius as 0.8 times
     // the smallest dimension of this components size.
     final shape = CircleHitbox.relative(
-      1,
+      0.8,
       parentSize: size,
-      position: Vector2(size.x / 3, size.y),
-      anchor: Anchor.centerLeft,
+      position: size / 2,
+      anchor: Anchor.center,
     );
     add(shape);
   }
@@ -82,73 +83,10 @@ class Ally extends SpriteComponent
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
 
-    if (other is Player &&
-        gameRef.player.animation == gameRef.animationKick &&
-        allyData.hMove) {
-      removeFromParent();
-      gameRef.addCommand(Command<AudioPlayerComponent>(action: (audioPlayer) {
-        audioPlayer.playSfx('audio/crack.mp3');
-      }));
-      gameRef.player.addToScore(allyData.killPoint * 10);
-      Bullet bullet = Bullet(
-          animation: gameRef.fire,
-          size: Vector2(100 / 2, 100 / 2),
-          position: Vector2(
-              gameRef.player.position.x + 32, gameRef.player.position.y + 80));
-
-      // Anchor it to center and add to game world.
-      bullet.anchor = Anchor.bottomCenter;
-
-      gameRef.add(bullet);
-    }
-    if (other is Player &&
-        gameRef.player.animation == gameRef.animationSlide &&
-        allyData.hMove) {
-      removeFromParent();
-      gameRef.player.addToScore(allyData.killPoint * 10);
-
-      Bullet bullet = Bullet(
-          animation: gameRef.fire,
-          size: Vector2(100 / 2, 100 / 2),
-          position: Vector2(
-              gameRef.player.position.x + 32, gameRef.player.position.y + 80));
-
-      // Anchor it to center and add to game world.
-      bullet.anchor = Anchor.bottomCenter;
-
-      gameRef.add(bullet);
-    }
-    if (other is Player &&
-        gameRef.player.joystick.delta.y < 0 &&
-        allyData.psn != 130 &&
-        !allyData.hMove) {
-      removeFromParent();
-      final command = Command<Player>(action: (player) {
-        player.increaseHealthBy(-20);
-      });
-      gameRef.addCommand(command);
-      gameRef.camera.shake(intensity: 5);
-    }
-    if (other is Player &&
-        gameRef.player.joystick.delta.y > 0 &&
-        allyData.psn != 0 &&
-        !allyData.hMove) {
-      removeFromParent();
-      final command = Command<Player>(action: (player) {
-        player.increaseHealthBy(-20);
-      });
-      gameRef.addCommand(command);
-      gameRef.camera.shake(intensity: 5);
-    }
-    if (other is Player &&
-        gameRef.player.joystick.delta.y == 0 &&
-        !allyData.hMove) {
-      removeFromParent();
-      final command = Command<Player>(action: (player) {
-        player.increaseHealthBy(-20);
-      });
-      gameRef.addCommand(command);
-      gameRef.camera.shake(intensity: 5);
+    if (other is Bullet) {
+      // If the other Collidable is Player, destroy.
+      // kiss();
+      // gameRef.resetAlly();
     }
   }
 
@@ -175,11 +113,8 @@ class Ally extends SpriteComponent
     super.update(dt);
 
     // Update the position of this enemy using its speed and delta time.
-    position += moveDirection * _speed * dt;
-    if (allyData.hMove) {
-      angle = angle - 0.1;
-    }
-
+    // position += moveDirection * _speed * dt;
+    // angle = angle + 0.1;
     // position.clamp(
     //   Vector2.zero() + size / 2,
     //   gameRef.size - size / 2,

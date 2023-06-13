@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:slot_package/const_colors.dart';
 
-import '../../../const/colors.dart';
 import '../../game/game.dart';
 import 'pause_menu.dart';
 
@@ -19,7 +19,7 @@ class PauseButton extends StatelessWidget {
       child: TextButton(
         child: Icon(
           size: 42.h,
-          Icons.pause_circle,
+          Icons.pause_circle_rounded,
           color: AppColors.frontColor,
         ),
         onPressed: () {

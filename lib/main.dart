@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-// import 'package:slot_package/screens/game_menu.dart';
+import 'package:slot_package/game_menu.dart';
 
-import 'package:slot_package/screens/game_menu.dart';
+// import 'package:slot_package/screens/game_menu.dart';
 
 void main() {
   runApp(MaterialApp(

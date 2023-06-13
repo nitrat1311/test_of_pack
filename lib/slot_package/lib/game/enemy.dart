@@ -5,7 +5,7 @@ import 'package:flame/particles.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
-import '../../models/enemy_data.dart';
+import '../models/enemy_data.dart';
 import 'bullet.dart';
 import 'game.dart';
 import 'player.dart';
@@ -100,7 +100,7 @@ class Enemy extends SpriteAnimationComponent
 
     if (other is Player &&
         !gameRef.player.animation!.isLastFrame &&
-        gameRef.player.animation == gameRef.animationKick) {
+        gameRef.player.animation == gameRef.animationRight) {
       // If the other Collidable is Player, destroy.
       removeFromParent();
       // destroy();
@@ -151,9 +151,6 @@ class Enemy extends SpriteAnimationComponent
     removeFromParent();
     gameRef.player.addToScore(enemyData.killPoint);
 
-    gameRef.addCommand(Command<AudioPlayerComponent>(action: (audioPlayer) {
-      audioPlayer.playSfx('audio/crack.mp3');
-    }));
     // Generate 20 white circle particles with random speed and acceleration,
     // at current position of this enemy. Each particles lives for exactly
     // 0.1 seconds and will get removed from the game world after that.
