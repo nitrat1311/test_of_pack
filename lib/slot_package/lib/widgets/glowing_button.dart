@@ -22,10 +22,10 @@ class GlowingButtonState extends State<GlowingButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: REdgeInsets.symmetric(vertical: AppColors.randomPadding / 2),
+      margin: REdgeInsets.symmetric(vertical: AppColors.randomPadding / 3),
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.buttonColor, width: 3),
-        borderRadius: BorderRadius.circular(2),
+        borderRadius: BorderRadius.circular(21),
         gradient: const LinearGradient(
           colors: [
             AppColors.frontColor,
@@ -46,7 +46,7 @@ class GlowingButtonState extends State<GlowingButton> {
       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         Padding(
             padding: const EdgeInsets.fromLTRB(
-                0, AppColors.randomPadding / 3, 0, AppColors.randomPadding / 2),
+                0, AppColors.randomPadding / 2, 0, AppColors.randomPadding / 3),
             child: widget.child),
       ]),
     );

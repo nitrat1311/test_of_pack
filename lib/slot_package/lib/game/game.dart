@@ -129,14 +129,15 @@ class MasksweirdGame extends FlameGame
       ).createAnimation(from: 0, to: 5, row: 0, stepTime: 0.25, loop: true);
       // Create a basic joystick component on left.
       final joystick = JoystickComponent(
-        anchor: Anchor.bottomLeft,
-        position: Vector2(size.x / 2 - size.x / 3, size.y - 32),
-        background: CircleComponent(
-          radius: 50,
-          paint: Paint()..color = AppColors.buttonColor.withOpacity(0.5),
-        ),
-        knob: CircleComponent(radius: 30),
-      );
+          anchor: Anchor.bottomLeft,
+          position: Vector2(size.x / 2 - size.x / 5, size.y - 32),
+          background: CircleComponent(
+            radius: 50,
+            paint: Paint()..color = AppColors.buttonColor.withOpacity(0.5),
+          ),
+          knob: RectangleComponent(
+              size: Vector2(30, 30), paint: Paint()..color = Colors.white));
+
       add(joystick);
       player = Player(
         joystick: joystick,
@@ -148,8 +149,8 @@ class MasksweirdGame extends FlameGame
       // Makes sure that the sprite is centered.
       player.anchor = Anchor.center;
       add(player);
-      _healthBar = HealthBar(
-          player: player, position: Vector2(size.x - 150, size.y - 250));
+      _healthBar =
+          HealthBar(player: player, position: Vector2(30, size.y - 220));
       add(_healthBar);
       _allyManager = AllyManager(spriteSheet: spriteSheet);
       add(_allyManager);
@@ -172,8 +173,7 @@ class MasksweirdGame extends FlameGame
           style: TextStyle(
               background: Paint()..color = AppColors.backColor.withOpacity(0.5),
               letterSpacing: 5,
-              fontFamily: 'RobotoSlab',
-              fontSize: 22,
+              fontSize: 32,
               color: AppColors.backColor,
               fontWeight: FontWeight.normal),
         ),
@@ -183,8 +183,7 @@ class MasksweirdGame extends FlameGame
         textRenderer: TextPaint(
             style: TextStyle(
                 letterSpacing: 5,
-                fontFamily: 'RobotoSlab',
-                fontSize: 22,
+                fontSize: 32,
                 fontStyle: FontStyle.normal,
                 foreground: Paint()
                   ..style = PaintingStyle.fill
@@ -203,24 +202,22 @@ class MasksweirdGame extends FlameGame
 
       // Create text component for player health.
       _playerHealth = TextComponent(
-        position: Vector2(size.x - 70, size.y - 180),
+        position: Vector2(150, size.y - 180),
         textRenderer: TextPaint(
           style: TextStyle(
               background: Paint()..color = AppColors.backColor.withOpacity(0.5),
-              letterSpacing: 5,
-              fontFamily: 'Jost',
-              fontSize: 22,
+              letterSpacing: 15,
+              fontSize: 32,
               color: AppColors.backColor,
               fontWeight: FontWeight.normal),
         ),
       );
       _playerHealth2 = TextComponent(
-        position: Vector2(size.x - 70, size.y - 180 - 2),
+        position: Vector2(150, size.y - 180 - 2),
         textRenderer: TextPaint(
           style: TextStyle(
-              letterSpacing: 5,
-              fontFamily: 'Jost',
-              fontSize: 22,
+              letterSpacing: 15,
+              fontSize: 32,
               foreground: Paint()
                 ..style = PaintingStyle.fill
                 ..strokeWidth = 1
@@ -286,8 +283,8 @@ class MasksweirdGame extends FlameGame
       // Update score and health components with latest values.
       _playerScore.text = 'Score: ${player.score}';
       _playerScore2.text = 'Score: ${player.score}';
-      _playerHealth.text = 'Life';
-      _playerHealth2.text = 'Life';
+      _playerHealth.text = 'HP';
+      _playerHealth2.text = 'HP';
 
       /// Display [GameOverMenu] when [Player.health] becomes
       /// zero and camera stops shaking.

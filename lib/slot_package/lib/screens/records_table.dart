@@ -51,9 +51,9 @@ class RecordsTable extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      Text('Score 1 : 350'),
-                      Text('Score 2 : 250'),
-                      Text('Score 2 : 150'),
+                      Text('First  : 450'),
+                      Text('Second : 150'),
+                      Text('Third : 100'),
                     ],
                   ),
                   SizedBox(height: 30.h),

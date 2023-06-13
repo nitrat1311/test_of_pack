@@ -19,7 +19,7 @@ class PauseButton extends StatelessWidget {
       child: TextButton(
         child: Icon(
           size: 42.h,
-          Icons.stop_circle_sharp,
+          Icons.pause_circle,
           color: AppColors.frontColor,
         ),
         onPressed: () {

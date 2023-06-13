@@ -30,8 +30,8 @@ class PauseMenu extends StatelessWidget {
                     letterSpacing: 5.0,
                     foreground: Paint()
                       ..style = PaintingStyle.stroke
-                      ..strokeWidth = 4
-                      ..color = AppColors.backColor,
+                      ..strokeWidth = 4,
+                    // ..color = AppColors.backColor,
                     fontWeight: FontWeight.bold),
               ),
               Text(
@@ -67,7 +67,7 @@ class PauseMenu extends StatelessWidget {
                     gameRef.overlays.add(PauseButton.id);
                   },
                   child: const Icon(
-                    Icons.start,
+                    Icons.publish_rounded,
                     color: AppColors.frontColor,
                   ),
                 ),
@@ -118,7 +118,7 @@ class PauseMenu extends StatelessWidget {
                 );
               },
               child: const Icon(
-                Icons.leave_bags_at_home,
+                Icons.time_to_leave_sharp,
                 color: AppColors.frontColor,
               ),
             ),

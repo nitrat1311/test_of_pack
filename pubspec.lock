@@ -352,11 +352,9 @@ packages:
   slot_package:
     dependency: "direct main"
     description:
-      path: "."
-      ref: legendary-slide-brazil
-      resolved-ref: "1d22b0f89d8275102a1252806f8fe795664e626b"
-      url: "https://github.com/nitrat1311/slot_pack.git"
-    source: git
+      path: "lib/slot_package"
+      relative: true
+    source: path
     version: "0.0.1"
   source_span:
     dependency: transitive

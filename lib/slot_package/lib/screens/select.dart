@@ -27,7 +27,7 @@ class Select extends StatelessWidget {
               // Start button.
               Container(
                 margin: REdgeInsets.only(
-                    top: MediaQuery.of(context).size.height / 1.1),
+                    bottom: MediaQuery.of(context).size.height / 1.5),
                 decoration: BoxDecoration(
                     border: Border.all(color: AppColors.frontColor, width: 4),
                     borderRadius: AppColors.borderRadius),
@@ -42,7 +42,7 @@ class Select extends StatelessWidget {
                     );
                   },
                   child: const Icon(
-                    Icons.next_week,
+                    Icons.nat,
                     color: AppColors.frontColor,
                   ),
                 ),
