@@ -1,16 +1,17 @@
 import 'dart:math';
 import 'package:flame/components.dart';
+import 'package:flame/sprite.dart';
 import '../models/ally_data.dart';
 import 'ally.dart';
 import 'game.dart';
 
 class AllyManager extends Component with HasGameRef<MasksweirdGame> {
   late Timer _timer;
-  late Sprite sprite;
+  late SpriteSheet spriteSheet;
   Random random = Random();
   List<Ally> allies = [];
 
-  AllyManager({required this.sprite}) : super() {
+  AllyManager({required this.spriteSheet}) : super() {
     _timer = Timer(0, onTick: spawnAllies, repeat: false);
   }
 
@@ -24,9 +25,9 @@ class AllyManager extends Component with HasGameRef<MasksweirdGame> {
       const AllyData(
           killPoint: 1, speed: 250, spriteId: 1, level: 1, hMove: false),
       const AllyData(
-          killPoint: 20, speed: 250, spriteId: 1, level: 1, hMove: false),
+          killPoint: 20, speed: 250, spriteId: 2, level: 1, hMove: false),
       const AllyData(
-          killPoint: 30, speed: 250, spriteId: 1, level: 1, hMove: false),
+          killPoint: 30, speed: 250, spriteId: 5, level: 1, hMove: false),
     ];
 
     for (int i = 0; i < allyCount; i++) {
@@ -47,8 +48,8 @@ class AllyManager extends Component with HasGameRef<MasksweirdGame> {
     final ally = Ally(
       position: position,
       allyData: allyData,
-      sprite: sprite,
-      size: Vector2(64 * 1.3, 64 * 1.3),
+      sprite: spriteSheet.getSpriteById(allyData.spriteId),
+      size: Vector2(900 / 18, 1500 / 20),
     );
 
     ally.angle = initialAngle;
@@ -72,7 +73,7 @@ class AllyManager extends Component with HasGameRef<MasksweirdGame> {
   void update(double dt) {
     super.update(dt);
 
-    const double rotationSpeed = 3; // Adjust the rotation speed as desired
+    const double rotationSpeed = 0.5; // Adjust the rotation speed as desired
 
     for (final ally in allies) {
       ally.angle += dt * rotationSpeed;

@@ -1,4 +1,4 @@
-#Sun Jun 11 23:06:13 EEST 2023
+#Thu Jun 15 21:50:36 EEST 2023
 base.1=C\:\\Users\\romay\\OneDrive\\Desktop\\test_of_pack\\lib\\slot_package\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes2.dex
 path.1=classes2.dex
 base.0=C\:\\Users\\romay\\OneDrive\\Desktop\\test_of_pack\\lib\\slot_package\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
