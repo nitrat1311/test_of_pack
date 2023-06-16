@@ -2,8 +2,7 @@ library slot_package;
 
 import 'package:flame/components.dart';
 import 'package:flame_audio/flame_audio.dart';
-import 'package:slot_package/const_colors.dart';
-
+import '../../const_colors.dart';
 import 'game.dart';
 
 class AudioPlayerComponent extends Component with HasGameRef<MasksweirdGame> {

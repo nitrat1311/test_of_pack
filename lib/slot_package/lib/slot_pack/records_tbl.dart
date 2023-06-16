@@ -2,13 +2,13 @@ library slot_package;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:slot_package/const_colors.dart';
+import '../const_colors.dart';
 import 'game_menu.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RecordsTbl extends StatelessWidget {
-  static List records = [30, 80, 7, 200, 350];
+  static List records = [10, 0, 50, 200];
   const RecordsTbl({
     Key? key,
   }) : super(key: key);

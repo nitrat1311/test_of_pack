@@ -5,7 +5,7 @@ import 'package:flame/components.dart';
 import 'package:flame/parallax.dart';
 import 'package:flutter/material.dart';
 
-import 'package:slot_package/const_colors.dart';
+import '../../const_colors.dart';
 
 class Background extends ParallaxComponent {
   @override

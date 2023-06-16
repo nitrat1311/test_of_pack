@@ -1,28 +1,29 @@
+library slot_package;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:slot_package/const_colors.dart';
-import '../../game/game.dart';
-
-import '../../game_menu.dart';
-import 'pause_button.dart';
+import '../const_colors.dart';
+import 'game/game.dart';
+import 'game_menu.dart';
+import 'pause_btn.dart';
 
 // This class represents the game over menu overlay.
-class GameOverMenu extends StatelessWidget {
+class OverMenu extends StatelessWidget {
   static const String id = 'GameOverMenu';
   final MasksweirdGame gameRef;
 
-  const GameOverMenu({Key? key, required this.gameRef}) : super(key: key);
+  const OverMenu({Key? key, required this.gameRef}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           // Pause menu title.
           Padding(
-            padding: REdgeInsets.symmetric(vertical: 50.0),
+            padding: REdgeInsets.only(top: AppColors.randomPadding * 3),
             child: Stack(
               children: [
                 Text(
@@ -33,7 +34,7 @@ class GameOverMenu extends StatelessWidget {
                       foreground: Paint()
                         ..style = PaintingStyle.stroke
                         ..strokeWidth = 4
-                        ..color = AppColors.backColor,
+                        ..color = AppColors.frontColor,
                       fontWeight: FontWeight.bold),
                 ),
                 Text(
@@ -44,7 +45,7 @@ class GameOverMenu extends StatelessWidget {
                       foreground: Paint()
                         ..style = PaintingStyle.fill
                         ..strokeWidth = 1
-                        ..color = AppColors.frontColor,
+                        ..color = AppColors.backColor,
                       // color: ,
                       fontWeight: FontWeight.normal),
                 ),
@@ -54,21 +55,23 @@ class GameOverMenu extends StatelessWidget {
 
           // Restart button.
           Container(
+            padding: const EdgeInsets.only(left: AppColors.randomPadding - 30),
             decoration: BoxDecoration(
               borderRadius: AppColors.borderRadius,
-              border: Border.all(color: AppColors.buttonColor, width: 4),
+              border: Border.all(color: Colors.transparent, width: 4),
             ),
             child: FloatingActionButton.large(
-              backgroundColor: AppColors.backColor,
+              backgroundColor: AppColors.frontColor,
+              shape: AppColors.buttonShape,
               onPressed: () {
-                gameRef.overlays.remove(GameOverMenu.id);
+                gameRef.overlays.remove(OverMenu.id);
                 gameRef.overlays.add(PauseButton.id);
-                gameRef.reset();
+                gameRef.reset(context);
                 gameRef.resumeEngine();
               },
               child: const Icon(
-                Icons.restore,
-                color: AppColors.frontColor,
+                Icons.restart_alt_rounded,
+                color: AppColors.textButtonMenu,
               ),
             ),
           ),
@@ -77,15 +80,16 @@ class GameOverMenu extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               borderRadius: AppColors.borderRadius,
-              border: Border.all(color: AppColors.buttonColor, width: 4),
+              border: Border.all(color: Colors.transparent, width: 4),
             ),
-            margin: REdgeInsets.only(top: 30),
+            margin: REdgeInsets.only(top: AppColors.randomPadding),
             child: FloatingActionButton.large(
-              backgroundColor: AppColors.backColor,
+              shape: AppColors.buttonShape,
+              backgroundColor: AppColors.frontColor,
               elevation: 20,
               onPressed: () {
-                gameRef.overlays.remove(GameOverMenu.id);
-                gameRef.reset();
+                gameRef.overlays.remove(OverMenu.id);
+                gameRef.reset(context);
                 gameRef.resumeEngine();
 
                 Navigator.of(context).pushReplacement(
@@ -96,7 +100,7 @@ class GameOverMenu extends StatelessWidget {
               },
               child: const Icon(
                 Icons.exit_to_app,
-                color: AppColors.frontColor,
+                color: AppColors.textButtonMenu,
               ),
             ),
           ),
