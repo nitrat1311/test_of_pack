@@ -110,34 +110,36 @@ class MasksweirdGame extends FlameGame
 
       _playerScore = TextComponent(
         position:
-            Vector2(size.x / 2 - 20, AppColors.scoreY.toDouble() / 2 - 40),
+            Vector2(size.x / 2 - 35, AppColors.scoreY.toDouble() / 2 - 40),
         textRenderer: TextPaint(
           style: TextStyle(
-              letterSpacing: 5,
+              letterSpacing: 10,
               fontFamily: 'Delicious',
               fontSize: 40,
               fontStyle: FontStyle.italic,
               foreground: Paint()
+                ..maskFilter = MaskFilter.blur(BlurStyle.outer, 10)
                 ..style = PaintingStyle.fill
                 ..strokeWidth = 1
-                ..color = Colors.black,
+                ..color = Colors.redAccent,
               fontWeight: FontWeight.normal),
         ),
       );
       _playerScore2 = TextComponent(
         position:
-            Vector2((size.x / 2 - 22), AppColors.scoreY.toDouble() / 2 - 42),
+            Vector2((size.x / 2 - 35), AppColors.scoreY.toDouble() / 2 - 42),
         textRenderer: TextPaint(
             style: TextStyle(
-                letterSpacing: 5,
+                letterSpacing: 10,
                 fontFamily: 'Delicious',
                 fontSize: 40,
                 fontStyle: FontStyle.italic,
                 foreground: Paint()
+                  ..maskFilter = MaskFilter.blur(BlurStyle.inner, 2)
                   ..style = PaintingStyle.fill
                   ..strokeWidth = 1
                   ..color = Colors.white,
-                fontWeight: FontWeight.normal)),
+                fontWeight: FontWeight.bold)),
       );
       // Setting positionType to viewport makes sure that this component
       // does not get affected by camera's transformations.

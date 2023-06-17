@@ -46,7 +46,7 @@ class _PauseButtonState extends State<PauseButton> {
         child: TextButton(
           style: ButtonStyle(
             backgroundColor:
-                MaterialStatePropertyAll<Color>(Colors.blue.withOpacity(0.5)),
+                MaterialStatePropertyAll<Color>(Colors.pink.withOpacity(0.5)),
             shadowColor:
                 const MaterialStatePropertyAll<Color>(AppColors.backColor),
             elevation: MaterialStateProperty.all(15),
@@ -55,8 +55,8 @@ class _PauseButtonState extends State<PauseButton> {
             ),
             side: MaterialStateProperty.all(
               const BorderSide(
-                color: Colors.black,
-                width: 3,
+                color: Colors.red,
+                width: 10,
               ),
             ),
             //   backgroundColor: const MaterialStatePropertyAll<Color>(
@@ -144,8 +144,8 @@ class _PauseButtonState extends State<PauseButton> {
             ),
             side: MaterialStateProperty.all(
               const BorderSide(
-                color: Colors.black,
-                width: 3,
+                color: Colors.red,
+                width: 8,
               ),
             ),
             backgroundColor: MaterialStatePropertyAll<Color>(

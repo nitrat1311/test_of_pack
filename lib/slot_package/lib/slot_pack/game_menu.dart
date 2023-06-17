@@ -52,15 +52,16 @@ class GameMenu extends StatelessWidget {
                       maxLines: 2,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          backgroundColor: Colors.amber.withOpacity(0.5),
-                          foreground: Paint()..color = Colors.black,
+                          backgroundColor:
+                              Color.fromARGB(255, 35, 71, 2).withOpacity(0.1),
+                          foreground: Paint()..color = Colors.redAccent,
                           fontSize: 50,
                           fontWeight: FontWeight.normal,
                           shadows: const [
                             Shadow(
                               offset: Offset(0, -2.0),
                               blurRadius: 8,
-                              color: Colors.white,
+                              color: Colors.black,
                             ),
                           ]),
                     ),
@@ -70,7 +71,7 @@ class GameMenu extends StatelessWidget {
                     padding: REdgeInsets.only(left: AppColors.randomPadding),
                     child: GestureDetector(
                       child: Neon(
-                        text: 'New Game',
+                        text: 'Start',
                         color: AppColors.buttonColor,
                         fontSize: 40.h,
                         font: AppColors.neonFont,
@@ -84,10 +85,10 @@ class GameMenu extends StatelessWidget {
                       },
                     ),
                   ),
-                  SizedBox(height: AppColors.randomPadding.h),
+                  SizedBox(height: 2 * AppColors.randomPadding.h),
                   Padding(
                     padding:
-                        REdgeInsets.only(right: AppColors.randomPadding - 10),
+                        REdgeInsets.only(left: AppColors.randomPadding - 10),
                     child: GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(
@@ -97,7 +98,7 @@ class GameMenu extends StatelessWidget {
                         );
                       },
                       child: Neon(
-                        text: 'Score',
+                        text: 'points',
                         color: AppColors.buttonColor,
                         fontSize: 40.h,
                         font: AppColors.neonFont,
@@ -118,7 +119,7 @@ class GameMenu extends StatelessWidget {
                         );
                       },
                       child: Neon(
-                        text: 'Settings',
+                        text: 'music',
                         color: AppColors.buttonColor,
                         fontSize: 40.h,
                         font: AppColors.neonFont,

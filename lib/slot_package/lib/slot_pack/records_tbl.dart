@@ -47,7 +47,7 @@ class RecordsTbl extends StatelessWidget {
                   Padding(
                     padding: REdgeInsets.symmetric(vertical: 35.0),
                     child: Text(
-                      'Scores',
+                      'Points',
                       style: TextStyle(
                           backgroundColor:
                               Color.fromARGB(255, 28, 21, 18).withOpacity(0.8),
@@ -177,7 +177,7 @@ class _RecordListItem extends StatelessWidget {
 
   Widget _buildPlayerName() {
     return Text(
-      'Player',
+      'Gamer',
       style: TextStyle(
         fontSize: 16.sp,
         letterSpacing: 5.0,

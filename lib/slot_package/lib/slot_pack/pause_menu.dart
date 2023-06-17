@@ -27,21 +27,21 @@ class PauseMenu extends StatelessWidget {
               padding: REdgeInsets.only(top: AppColors.randomPadding * 3),
               child: Stack(children: [
                 Text(
-                  'Paused',
+                  'Stop',
                   style: TextStyle(
                       fontSize: 50.sp,
-                      letterSpacing: 7.0,
+                      letterSpacing: 12.0,
                       foreground: Paint()
                         ..style = PaintingStyle.stroke
-                        ..strokeWidth = 4
+                        ..strokeWidth = 1
                         ..color = AppColors.frontColor,
                       fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  'Paused',
+                  'Stop',
                   style: TextStyle(
                       fontSize: 50.sp,
-                      letterSpacing: 7.0,
+                      letterSpacing: 12.0,
                       foreground: Paint()
                         ..style = PaintingStyle.fill
                         ..strokeWidth = 1
@@ -62,7 +62,7 @@ class PauseMenu extends StatelessWidget {
                     border: Border.all(color: Colors.transparent, width: 4),
                     borderRadius: AppColors.borderRadius,
                   ),
-                  child: FloatingActionButton.large(
+                  child: FloatingActionButton(
                     shape: AppColors.buttonShape,
                     backgroundColor: AppColors.frontColor,
                     onPressed: () {
@@ -71,7 +71,7 @@ class PauseMenu extends StatelessWidget {
                       gameRef.overlays.add(PauseButton.id);
                     },
                     child: const Icon(
-                      Icons.play_arrow_sharp,
+                      Icons.check,
                       color: AppColors.textButtonMenu,
                     ),
                   ),
@@ -84,7 +84,7 @@ class PauseMenu extends StatelessWidget {
                     border: Border.all(color: Colors.transparent, width: 4),
                     borderRadius: AppColors.borderRadius,
                   ),
-                  child: FloatingActionButton.large(
+                  child: FloatingActionButton(
                     backgroundColor: AppColors.frontColor,
                     shape: AppColors.buttonShape,
                     onPressed: () {
@@ -110,7 +110,7 @@ class PauseMenu extends StatelessWidget {
                 borderRadius: AppColors.borderRadius,
               ),
               // margin: REdgeInsets.only(top: 10),
-              child: FloatingActionButton.large(
+              child: FloatingActionButton(
                 backgroundColor: AppColors.frontColor,
                 shape: AppColors.buttonShape,
                 elevation: 20,
