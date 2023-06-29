@@ -25,7 +25,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
     return Scaffold(
       body: Stack(children: [
         Image.asset(
-          'packages/slot_package/assets/images/scaffold_back.png',
+          'packages/slot_package/assets/images/back.png',
           width: 428.w,
           height: 926.h,
           fit: BoxFit.cover,

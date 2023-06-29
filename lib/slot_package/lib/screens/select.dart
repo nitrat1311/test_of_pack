@@ -15,7 +15,7 @@ class Select extends StatelessWidget {
     return Scaffold(
       body: Stack(children: [
         Image.asset(
-          'packages/slot_package/assets/images/show_case.png',
+          'packages/slot_package/assets/images/show_game.png',
           width: 428.w,
           height: 926.h,
           fit: BoxFit.cover,

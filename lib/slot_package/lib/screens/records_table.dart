@@ -1,5 +1,8 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:slot_package/widgets/glowing_button.dart';
 
 import 'game_menu.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,15 +20,10 @@ class RecordsTable extends StatelessWidget {
 
     return Scaffold(
       body: Stack(children: [
-        Image.asset(
-          'packages/slot_package/assets/images/scaffold_back.png',
-          width: 428.w,
-          height: 926.h,
-          fit: BoxFit.cover,
-        ),
+        Container(color: Colors.black,),
         Center(
           child: SizedBox(
-            height: MediaQuery.of(context).size.height / 1.9,
+            height: MediaQuery.of(context).size.height / 1.1,
             width: MediaQuery.of(context).size.width / 1.3,
             child: SingleChildScrollView(
               child: Column(
@@ -33,11 +31,11 @@ class RecordsTable extends StatelessWidget {
                 children: [
                   Padding(
                     padding: REdgeInsets.symmetric(vertical: 35.0),
-                    child: Text(
-                      'Scores',
+                    child: AutoSizeText(
+                      'Team 1 vs Team 2',
+                      maxLines: 1,
                       style: TextStyle(
-                          backgroundColor:
-                              AppColors.buttonColor.withOpacity(0.5),
+
                           foreground: Paint()..color = AppColors.frontColor,
                           fontSize: 50.sp,
                           shadows: const [
@@ -49,11 +47,18 @@ class RecordsTable extends StatelessWidget {
                           ]),
                     ),
                   ),
-                  Column(
+                  const Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Score 1 : 350'),
-                      Text('Score 2 : 250'),
-                      Text('Score 2 : 150'),
+                      GlowingButton(child: AutoSizeText('INFORMATION',style: TextStyle(fontSize: 32,color: Colors.white),textAlign: TextAlign.start)),
+                      SizedBox(
+                        height: 25
+                      ),
+                  
+                      GlowingButton(child: Text('Goals     >',style: AppColors.style,textAlign: TextAlign.start,),),
+                      GlowingButton(child: Text('Results   >',style: AppColors.style,textAlign: TextAlign.start),),
+                      GlowingButton(child: Text('Total     >',style: AppColors.style,textAlign: TextAlign.start),),
                     ],
                   ),
                   SizedBox(height: 30.h),
@@ -65,17 +70,14 @@ class RecordsTable extends StatelessWidget {
                         width: 4,
                       ),
                     ),
-                    child: FloatingActionButton.small(
-                      heroTag: null,
-                      backgroundColor: AppColors.buttonColor,
+                    child: ElevatedButton(
+          style:  ButtonStyle( backgroundColor:ButtonStyleButton.allOrNull(Colors.amber)),
+                     
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => const GameMenu()));
                       },
-                      child: const Icon(
-                        Icons.holiday_village,
-                        color: AppColors.frontColor,
-                      ),
+                      child: const Text('GO BACK',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 24),)
                     ),
                   ),
                 ],

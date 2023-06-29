@@ -1,6 +1,5 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
-import '../../const/colors.dart';
 
 import 'player.dart';
 

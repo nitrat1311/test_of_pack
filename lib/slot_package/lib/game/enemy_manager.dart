@@ -1,12 +1,13 @@
 import 'dart:math';
 import 'package:flame/components.dart';
+import 'package:flame/sprite.dart';
 
-import '../app_state.dart';
+import '../models/enemy_data.dart';
 import 'game.dart';
 import 'enemy.dart';
 import 'knows_game_size.dart';
 
-import '../../models/enemy_data.dart';
+
 
 // This component class takes care of spawning new enemy components
 // randomly from top of the screen. It uses the HasGameRef mixin so that
@@ -20,14 +21,14 @@ class EnemyManager extends Component
   late Timer _freezeTimer;
 
   // A reference to spriteSheet contains enemy sprites.
-  SpriteAnimation spriteSheet;
+  late SpriteSheet spriteSheet;
 
   // Holds an object of Random class to generate random numbers.
   Random random = Random();
 
   EnemyManager({required this.spriteSheet}) : super() {
     // Sets the timer to call _spawnEnemy() after every 1 second, until timer is explicitly stops.
-    _timer = Timer(0.9, onTick: _spawnEnemy, repeat: true);
+    _timer = Timer(1.5, onTick: _spawnEnemy, repeat: true);
 
     // Sets freeze time to 2 seconds. After 2 seconds spawn timer will start again.
     _freezeTimer = Timer(2, onTick: () {
@@ -37,12 +38,12 @@ class EnemyManager extends Component
 
   // Spawns a new enemy at random position at the top of the screen.
   void _spawnEnemy() {
-    Vector2 initialSize = Vector2(104 / 2, 101 / 2);
+    Vector2 initialSize = Vector2(64, 64);
 
     // random.nextDouble() generates a random number between 0 and 1.
     // Multiplying it by gameRef.size.x makes sure that the value remains between 0 and width of screen.
     Vector2 position =
-        Vector2((random.nextDouble() * 200) + 100 + gameRef.size.x / 18, 0);
+        Vector2(gameRef.size.x - 10, (random.nextDouble() * 100));
 
     // Clamps the vector such that the enemy sprite remains within the screen.
     position.clamp(
@@ -54,14 +55,15 @@ class EnemyManager extends Component
     if (gameRef.buildContext != null) {
       // Get current score and figure out the max level of enemy that
       // can be spawned for this score.
-      int currentScore = gameRef.player.score;
+      int currentScore =
+          gameRef.player.score;
       int maxLevel = mapScoreToMaxEnemyLevel(currentScore);
 
       /// Gets a random [EnemyData] object from the list.
       final enemyData = _enemyDataList.elementAt(random.nextInt(maxLevel * 4));
 
       Enemy enemy = Enemy(
-        animation: spriteSheet,
+        sprite: spriteSheet.getSpriteById(enemyData.spriteId),
         size: initialSize,
         position: position,
         enemyData: enemyData,
@@ -81,7 +83,7 @@ class EnemyManager extends Component
   int mapScoreToMaxEnemyLevel(int score) {
     int level = 1;
 
-    if (score > 100) {
+    if (score > 10) {
       level = 2;
     }
 

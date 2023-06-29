@@ -2,9 +2,10 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
 import '../game/ally.dart';
+import '../models/ally_data.dart';
 import 'game.dart';
 import 'knows_game_size.dart';
-import '../../models/ally_data.dart';
+
 
 // This component class takes care of spawning new enemy components
 // randomly from top of the screen. It uses the HasGameRef mixin so that
@@ -15,23 +16,23 @@ class AllyManager extends Component
   late Timer _timer;
 
   // A reference to spriteSheet contains enemy sprites.
-  SpriteSheet spriteSheet;
+  Sprite sprite;
 
   // Holds an object of Random class to generate random numbers.
   Random random = Random();
 
-  AllyManager({required this.spriteSheet}) : super() {
-    _timer = Timer(2, onTick: _spawnAlly, repeat: true);
+  AllyManager({required this.sprite}) : super() {
+    _timer = Timer(0, onTick: _spawnAlly, repeat: false);
   }
 
   // Spawns a new enemy at random position at the top of the screen.
   void _spawnAlly() {
-    Vector2 initialSize = Vector2(100 / 1.4, 100 / 1.4);
+    Vector2 initialSize = Vector2(257/2, 156/2);
 
     // random.nextDouble() generates a random number between 0 and 1.
     // Multiplying it by gameRef.size.x makes sure that the value remains between 0 and width of screen.
-    // Vector2 position = Vector2(gameRef.size.x - 32,
-    //     (gameRef.size.y - gameRef.size.y / 3) - 500 * random.nextDouble());
+    Vector2 position = Vector2(gameRef.size.x - 32,
+        (gameRef.size.y - 160) - 300 * random.nextDouble());
 
     // Make sure that we have a valid BuildContext before using it.
     if (gameRef.buildContext != null) {
@@ -39,11 +40,10 @@ class AllyManager extends Component
       // can be spawned for this score.
 
       /// Gets a random [EnemyData] object from the list.
-      final enemyData = _enemyDataList.elementAt(random.nextInt(5));
-      Vector2 position = Vector2(gameRef.size.x - 32,
-          (gameRef.size.y - (gameRef.size.y / 2) + enemyData.psn));
+      final enemyData = _enemyDataList.elementAt(0);
+
       Ally enemy = Ally(
-        sprite: spriteSheet.getSpriteById(enemyData.spriteId),
+        sprite: sprite,
         size: initialSize,
         position: position,
         allyData: enemyData,
@@ -92,43 +92,10 @@ class AllyManager extends Component
   static const List<AllyData> _enemyDataList = [
     AllyData(
       killPoint: 1,
-      speed: 350,
-      spriteId: 0,
-      level: 1,
-      hMove: false,
-      psn: 0,
-    ),
-    AllyData(
-      killPoint: 1,
-      speed: 350,
+      speed: 250,
       spriteId: 1,
       level: 1,
-      hMove: true,
-      psn: 100,
-    ),
-    AllyData(
-      killPoint: 1,
-      speed: 350,
-      spriteId: 0,
-      level: 1,
       hMove: false,
-      psn: 130,
-    ),
-    AllyData(
-      killPoint: 1,
-      speed: 500,
-      spriteId: 1,
-      level: 1,
-      hMove: true,
-      psn: 100,
-    ),
-    AllyData(
-      killPoint: 1,
-      speed: 450,
-      spriteId: 0,
-      level: 1,
-      hMove: false,
-      psn: 0,
     ),
   ];
 }

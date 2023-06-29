@@ -26,12 +26,12 @@ class GameMenu extends StatelessWidget {
       splitScreenMode: true,
     );
     // const double angle = AppColors.randomPadding / 25;
-    const double angle = 0.1;
+    const double angle = 0;
 
     return Scaffold(
       body: Stack(children: [
         Image.asset(
-          'packages/slot_package/assets/images/scaffold_back.png',
+          'packages/slot_package/assets/images/back.png',
           width: 428.w,
           height: 926.h,
           fit: BoxFit.cover,
@@ -43,26 +43,8 @@ class GameMenu extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  // const SizedBox(height: AppColors.randomPadding * 2),
-                  Transform.rotate(
-                    angle: angle,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (context) => const Select(),
-                          ),
-                        );
-                      },
-                      child: GlowingButton(
-                        child: Text(
-                          'game',
-                          style: TextStyle(
-                              color: AppColors.textButtonMenu, fontSize: 30.sp),
-                        ),
-                      ),
-                    ),
-                  ),
+                  const SizedBox(height: AppColors.randomPadding * 2),
+               
                   Padding(
                     padding: REdgeInsets.fromLTRB(
                         0, 5 + AppColors.randomPadding, 0, 0),
@@ -84,6 +66,26 @@ class GameMenu extends StatelessWidget {
                               color: AppColors.backColor,
                             ),
                           ]),
+                    ),
+                  ),
+
+                     Transform.rotate(
+                    angle: angle,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => const Select(),
+                          ),
+                        );
+                      },
+                      child: GlowingButton(
+                        child: Text(
+                          'Start',
+                          style: TextStyle(
+                              color: AppColors.textButtonMenu, fontSize: 30.sp),
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(

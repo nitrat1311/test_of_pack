@@ -1,7 +1,11 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 
+import 'audio_player_component.dart';
+import 'bullet.dart';
+import 'command.dart';
 import 'game.dart';
+import 'enemy.dart';
 import 'knows_game_size.dart';
 
 enum PlayerState { stopped1, stopped2, jumping, reverse, zero }
@@ -37,40 +41,41 @@ class Player extends SpriteAnimationComponent
     // Adding a circular hitbox with radius as 0.8 times
     // the smallest dimension of this components size.
     final shape = RectangleHitbox.relative(
-      Vector2(0.5, 1),
-      parentSize: Vector2(super.size.x * 0.5, super.size.y * 1),
-      position: Vector2(super.size.x / 2, super.size.y),
-      anchor: Anchor.centerRight,
+      Vector2(0.8, 0.8),
+      parentSize: super.size,
+      position: Vector2(super.size.x / 2, super.size.y / 2),
+      anchor: Anchor.center,
     );
     add(shape);
+  }
+
+  @override
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    super.onCollision(intersectionPoints, other);
+
+    if (other is Enemy && playerState == PlayerState.jumping) {
+      // Make the camera shake, with custom intensity.
+      // gameRef.camera.shake(intensity: 5);
+
+      //   _health -= 10;
+      //   if (_health <= 0) {
+      //     _health = 0;
+      //   }
+    }
   }
 
   // This method is called by game class for every frame.
   @override
   void update(double dt) {
     super.update(dt);
-    if (joystick.delta.x == 0 && playerState != PlayerState.jumping) {
-      // gameRef.animationKick.reset();
-      gameRef.player.animation = gameRef.noFire;
-      gameRef.animationJump.reset();
-      gameRef.animationSlide.reset();
-      gameRef.player.animation?.done();
-    }
+    // if (playerState == PlayerState.jumping) {
+    //   gameRef.player.animation = gameRef.animationRight;
+    // }
+    // if (joystick.delta.x == 0) {
+    //   gameRef.player.animation = gameRef.no_fire;
+    // }
     if (!joystick.delta.isZero()) {
-      if (joystick.delta.y > 0) {
-        gameRef.animationJump.reset();
-        gameRef.player.animation = gameRef.animationSlide;
-        if (gameRef.animationSlide.isLastFrame) {
-          gameRef.player.animation = gameRef.noFire;
-        }
-      }
-      if (joystick.delta.y < 0) {
-        gameRef.animationSlide.reset();
-        gameRef.player.animation = gameRef.animationJump;
-        if (gameRef.animationJump.isLastFrame) {
-          gameRef.player.animation = gameRef.noFire;
-        }
-      }
+      position.add(Vector2(0, joystick.relativeDelta.y) * 200 * dt);
     }
 
     if (playerState == PlayerState.stopped1) {}
@@ -107,10 +112,20 @@ class Player extends SpriteAnimationComponent
   }
 
   void jump() async {
-    playerState = PlayerState.jumping;
+    Bullet bullet = Bullet(
+        animation: gameRef.fire,
+        size: Vector2(104 / 2, 141 / 2),
+        position: Vector2(
+            gameRef.player.position.x + 32, gameRef.player.position.y + 62));
+    gameRef.addCommand(Command<AudioPlayerComponent>(action: (audioPlayer) {
+      audioPlayer.playSfx('audio/crack.mp3');
+    }));
+    // Anchor it to center and add to game world.
+    bullet.anchor = Anchor.bottomCenter;
+    gameRef.add(bullet);
 
-    gameRef.player.animation = gameRef.animationKick;
-    gameRef.noFire.reset();
+    gameRef.player.animation = gameRef.animationRight;
+    gameRef.animationRight.reset();
   }
 
   void compl() {
@@ -119,10 +134,8 @@ class Player extends SpriteAnimationComponent
     //   playerState = PlayerState.stopped2;
     // } else
     if (playerState == PlayerState.jumping) {
-      gameRef.noFire.reset();
-      gameRef.animationKick.reset();
-      gameRef.animationJump.reset();
-      gameRef.animationSlide.reset();
+      gameRef.no_fire.reset();
+      gameRef.animationRight.reset();
 
       playerState = PlayerState.stopped1;
     }

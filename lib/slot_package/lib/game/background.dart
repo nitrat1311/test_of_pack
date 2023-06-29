@@ -1,5 +1,4 @@
 import 'package:flame/components.dart';
-import 'package:flame/parallax.dart';
 
 class Background extends SpriteComponent with HasGameRef {
   @override
