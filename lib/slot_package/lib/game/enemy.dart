@@ -1,27 +1,29 @@
 import 'dart:math';
 
 import 'package:flame/collisions.dart';
+import 'package:flame/events.dart';
+import 'package:flame/experimental.dart';
 import 'package:flame/particles.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/enemy_data.dart';
-import 'bullet.dart';
-import 'game.dart';
+
+
+import 'game2.dart';
 import 'player.dart';
-import 'command.dart';
 import 'knows_game_size.dart';
-import 'audio_player_component.dart';
+
 
 // This class represent an enemy component.
 class Enemy extends SpriteComponent
-    with KnowsGameSize, CollisionCallbacks, HasGameRef<MasksweirdGame> {
+    with KnowsGameSize, CollisionCallbacks,TapCallbacks, HasGameRef<RouterGame> {
   // The speed of this enemy.
   double _speed = 250;
 
   // This direction in which this Enemy will move.
   // Defaults to vertically downwards.
-  Vector2 moveDirection = Vector2(0.5, 0.8);
+  Vector2 moveDirection = Vector2(-0.5, 0.8);
 
   // Controls for how long enemy should be freezed.
   late Timer _freezeTimer;
@@ -87,40 +89,19 @@ class Enemy extends SpriteComponent
     );
     add(shape);
   }
-
-  // @override
-  // bool onTapDown(TapDownInfo info) {
-  //   destroy();
-  //   return super.onTapDown(info);
-  // }
+    @override
+  bool containsLocalPoint(Vector2 point) => true;
 
   @override
-  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    super.onCollision(intersectionPoints, other);
-
-    if (other is Player && position.y > gameRef.size.y / 1.32) {
-      // If the other Collidable is Player, destroy.
-      destroy();
-    }
-    if (other is Bullet) {
-      // If the other Collidable is Player, destroy.
-      destroyMe();
-    }
+  void onTapDown(TapDownEvent event) {
+    destroyMe();
   }
 
   // This method will destory this enemy.
   void destroy() {
-    // Ask audio player to play enemy destroy effect.
-    gameRef.addCommand(Command<AudioPlayerComponent>(action: (audioPlayer) {
-      audioPlayer.playSfx('audio/extinguish.mp3');
-    }));
+  gameRef.health-=20;
     removeFromParent();
 
-    final command = Command<Player>(action: (player) {
-      // Use the correct killPoint to increase player's score.
-      player.increaseHealthBy(-20);
-    });
-    gameRef.addCommand(command);
 
     // Generate 20 white circle particles with random speed and acceleration,
     // at current position of this enemy. Each particles lives for exactly
@@ -146,7 +127,6 @@ class Enemy extends SpriteComponent
 
   void destroyMe() {
     removeFromParent();
-    gameRef.player.addToScore(enemyData.killPoint);
 
     // gameRef.addCommand(Command<AudioPlayerComponent>(action: (audioPlayer) {
     //   audioPlayer.playSfx('audio/crack.mp3');
@@ -178,10 +158,7 @@ class Enemy extends SpriteComponent
     super.update(dt);
     angle = angle + 0.1;
     // If hitPoints have reduced to zero,
-    // destroy this enemy.
-    if (_hitPoints <= 0) {
-      destroy();
-    }
+    // destroy this enemy
 
     _freezeTimer.update(dt);
 
@@ -193,14 +170,10 @@ class Enemy extends SpriteComponent
     //   destroy();
     // }
     // If the enemy leaves the screen, destroy it.
-    if (position.y > gameRef.size.y) {
+    if (position.x<gameRef.size.x/2) {
       gameRef.camera.shake(intensity: 5);
       destroy();
-    } else if ((position.x < size.x / 2) ||
-        (position.x > (gameRef.size.x - size.x / 2))) {
-      // Enemy is going outside vertical screen bounds, flip its x direction.
-      moveDirection.x *= -1;
-    }
+    } 
   }
 
   // Pauses enemy for 2 seconds when called.

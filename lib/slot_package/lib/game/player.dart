@@ -1,38 +1,44 @@
+import 'dart:async';
+
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/sprite.dart';
+import 'package:slot_package/game/enemy.dart';
+import 'package:slot_package/game/game2.dart';
 
-import 'audio_player_component.dart';
-import 'bullet.dart';
-import 'command.dart';
-import 'game.dart';
-import 'enemy.dart';
+
+import 'health_bar.dart';
 import 'knows_game_size.dart';
 
 enum PlayerState { stopped1, stopped2, jumping, reverse, zero }
 
 // This component class represents the player character in game.
-class Player extends SpriteAnimationComponent
+class Player extends SpriteComponent
     with
         KnowsGameSize,
         CollisionCallbacks,
-        HasGameRef<MasksweirdGame>,
-        KeyboardHandler {
-  PlayerState playerState = PlayerState.zero;
-  // Player health.
+        HasGameRef<RouterGame>
+         {
+
+
   int _health = 100;
   int _currentScore = 0;
   int get health => _health;
-
-  // A reference to PlayerData so that
-  JoystickComponent joystick;
   int get score => _currentScore;
 
+
+
   Player({
-    required this.joystick,
-    SpriteAnimation? animation,
+    Sprite? sprite,
     Vector2? position,
     Vector2? size,
-  }) : super(animation: animation, position: position, size: size);
+  }) : super(sprite: sprite, position: position, size: size);
+     
+      @override
+  FutureOr<void> onLoad() {
+    
+    return super.onLoad();
+  }
 
   @override
   void onMount() async {
@@ -49,43 +55,19 @@ class Player extends SpriteAnimationComponent
     add(shape);
   }
 
-  @override
-  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    super.onCollision(intersectionPoints, other);
-
-    if (other is Enemy && playerState == PlayerState.jumping) {
-      // Make the camera shake, with custom intensity.
-      // gameRef.camera.shake(intensity: 5);
-
-      //   _health -= 10;
-      //   if (_health <= 0) {
-      //     _health = 0;
-      //   }
-    }
-  }
-
   // This method is called by game class for every frame.
   @override
   void update(double dt) {
     super.update(dt);
-    // if (playerState == PlayerState.jumping) {
-    //   gameRef.player.animation = gameRef.animationRight;
-    // }
-    // if (joystick.delta.x == 0) {
-    //   gameRef.player.animation = gameRef.no_fire;
-    // }
-    if (!joystick.delta.isZero()) {
-      position.add(Vector2(0, joystick.relativeDelta.y) * 200 * dt);
-    }
 
-    if (playerState == PlayerState.stopped1) {}
-    if (playerState == PlayerState.stopped2) {}
-    if (playerState == PlayerState.zero) {}
-    // Clamp position of player such that the player sprite does not go outside the screen size.
     position.clamp(
       Vector2.zero() + size / 2,
       gameRef.size - size / 2,
     );
+            if (health <= 0) {
+          gameRef.pauseEngine();
+          gameRef.router.popUntilNamed('home');
+        }
   }
 
   // Adds given points to player score
@@ -93,7 +75,14 @@ class Player extends SpriteAnimationComponent
   void addToScore(int points) {
     _currentScore += points;
   }
-
+@override
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+       if (other is Enemy && position.y > gameRef.size.y / 1.32) {
+      // If the other Collidable is Player, destroy.
+      _health-=20;
+    }
+    super.onCollision(intersectionPoints, other);
+  }
   // Increases health by give amount.
   void increaseHealthBy(int points) {
     _health += points;
@@ -110,34 +99,5 @@ class Player extends SpriteAnimationComponent
     _health = 100;
     // position = gameRef.size / 2;
   }
-
-  void jump() async {
-    Bullet bullet = Bullet(
-        animation: gameRef.fire,
-        size: Vector2(104 / 2, 141 / 2),
-        position: Vector2(
-            gameRef.player.position.x + 32, gameRef.player.position.y + 62));
-    gameRef.addCommand(Command<AudioPlayerComponent>(action: (audioPlayer) {
-      audioPlayer.playSfx('audio/crack.mp3');
-    }));
-    // Anchor it to center and add to game world.
-    bullet.anchor = Anchor.bottomCenter;
-    gameRef.add(bullet);
-
-    gameRef.player.animation = gameRef.animationRight;
-    gameRef.animationRight.reset();
   }
 
-  void compl() {
-    // if (playerState == PlayerState.reverse) {
-
-    //   playerState = PlayerState.stopped2;
-    // } else
-    if (playerState == PlayerState.jumping) {
-      gameRef.no_fire.reset();
-      gameRef.animationRight.reset();
-
-      playerState = PlayerState.stopped1;
-    }
-  }
-}

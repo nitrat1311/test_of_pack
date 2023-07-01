@@ -3,8 +3,10 @@ import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
 
 import '../models/enemy_data.dart';
-import 'game.dart';
+
 import 'enemy.dart';
+import 'game2.dart';
+import 'health_bar.dart';
 import 'knows_game_size.dart';
 
 
@@ -13,20 +15,19 @@ import 'knows_game_size.dart';
 // randomly from top of the screen. It uses the HasGameRef mixin so that
 // it can add child components.
 class EnemyManager extends Component
-    with KnowsGameSize, HasGameRef<MasksweirdGame> {
+    with KnowsGameSize, HasGameRef<RouterGame> {
   // The timer which runs the enemy spawner code at regular interval of time.
   late Timer _timer;
-
+late SpriteSheet ballSprite;
   // Controls for how long EnemyManager should stop spawning new enemies.
   late Timer _freezeTimer;
 
-  // A reference to spriteSheet contains enemy sprites.
-  late SpriteSheet spriteSheet;
+
 
   // Holds an object of Random class to generate random numbers.
   Random random = Random();
 
-  EnemyManager({required this.spriteSheet}) : super() {
+  EnemyManager() : super() {
     // Sets the timer to call _spawnEnemy() after every 1 second, until timer is explicitly stops.
     _timer = Timer(1.5, onTick: _spawnEnemy, repeat: true);
 
@@ -35,7 +36,27 @@ class EnemyManager extends Component
       _timer.start();
     });
   }
+@override
+  Future<void> onLoad() async {
+    // Makes the game use a fixed resolution irrespective of the windows size.
+    gameRef.images.prefix = 'packages/slot_package/assets/images/';
+    // Initilize the game world only one time.
 
+      await gameRef.images.loadAll([
+         'animation_fire.png',
+      ]);
+
+
+      ballSprite = SpriteSheet.fromColumnsAndRows(
+        image: gameRef.images.fromCache('animation_fire.png'),
+        columns: 6,
+        rows: 1,
+      );
+      add(HealthBar(position: Vector2(25, 55)));
+      
+      }
+
+      
   // Spawns a new enemy at random position at the top of the screen.
   void _spawnEnemy() {
     Vector2 initialSize = Vector2(64, 64);
@@ -55,15 +76,13 @@ class EnemyManager extends Component
     if (gameRef.buildContext != null) {
       // Get current score and figure out the max level of enemy that
       // can be spawned for this score.
-      int currentScore =
-          gameRef.player.score;
-      int maxLevel = mapScoreToMaxEnemyLevel(currentScore);
+
 
       /// Gets a random [EnemyData] object from the list.
-      final enemyData = _enemyDataList.elementAt(random.nextInt(maxLevel * 4));
+      final enemyData = _enemyDataList.elementAt(random.nextInt(4));
 
       Enemy enemy = Enemy(
-        sprite: spriteSheet.getSpriteById(enemyData.spriteId),
+        sprite: ballSprite.getSpriteById(enemyData.spriteId),
         size: initialSize,
         position: position,
         enemyData: enemyData,

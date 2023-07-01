@@ -1,13 +1,12 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
-import 'player.dart';
+import 'game2.dart';
 
-class HealthBar extends PositionComponent {
-  final Player player;
+class HealthBar extends PositionComponent with HasGameRef<RouterGame> {
+
 
   HealthBar({
-    required this.player,
     super.position,
     super.size,
     super.scale,
@@ -23,9 +22,13 @@ class HealthBar extends PositionComponent {
   void render(Canvas canvas) {
     // Draws a rectangular health bar at top right corner.
     canvas.drawRect(
-      Rect.fromLTWH(-2, 5, player.health.toDouble(), 20),
+      Rect.fromLTWH(-2, 5, gameRef.health.toDouble(), 20),
       Paint()..color = Colors.pink,
     );
     super.render(canvas);
+  }
+    @override
+  void update(double dt) {
+    super.update(dt);
   }
 }
