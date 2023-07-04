@@ -95,6 +95,7 @@ class Enemy extends SpriteComponent
   @override
   void onTapDown(TapDownEvent event) {
     destroyMe();
+
   }
 
   // This method will destory this enemy.
@@ -126,6 +127,11 @@ class Enemy extends SpriteComponent
   }
 
   void destroyMe() {
+          if ( gameRef.health <= 10) {
+          gameRef.pauseEngine();
+            gameRef.router.pushNamed('home');
+          
+        }
     removeFromParent();
 
     // gameRef.addCommand(Command<AudioPlayerComponent>(action: (audioPlayer) {

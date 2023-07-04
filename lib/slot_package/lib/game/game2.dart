@@ -9,12 +9,7 @@ import 'package:slot_package/game/enemy_manager.dart';
 
 class RouterGame extends FlameGame with HasTappableComponents{
   late final RouterComponent router;
-  int _health = 100;
-  int get health => _health;
-    set health(int value) {
-    // You can add custom logic or constraints here if needed
-    _health = value;
-  }
+  int health = 100;
   @override
   Future<void> onLoad() async {
     add(
@@ -28,11 +23,7 @@ class RouterGame extends FlameGame with HasTappableComponents{
         initialRoute: 'home',
       ),
     );
-        if ( health <= 0) {
-          pauseEngine();
-            router.popUntilNamed('home');
-          
-        }
+      
   }
           
 }
@@ -224,7 +215,7 @@ class Level1Page extends Component {
   Future<void> onLoad() async {
     final game = findGame()!;
     addAll([
-EnemyManager(),
+      EnemyManager(),
       Background(const Color(0xbb2a074f)),
       BackButton(),
       PauseButton(),
