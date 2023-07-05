@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const appLable = 'Battle of the stakes';
+  static const appLable = 'World of Planets';
   static const myPackage = 'slot_package';
   static const backColor = Color.fromARGB(208, 0, 0, 0); //any colors
   static const frontColor = Color.fromARGB(255, 255, 255, 255); //any colors
