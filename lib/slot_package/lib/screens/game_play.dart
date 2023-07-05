@@ -3,13 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:slot_package/game/game2.dart';
 
 
-// Creating this as a file private object so as to
-// avoid unwanted rebuilds of the whole game object.
-// MasksweirdGame _masksweirdGame =
-//     MasksweirdGame(recordsBloc: context.recordsBloc);
 
-// This class represents the actual game screen
-// where all the action happens.
 class GamePlay extends StatelessWidget {
   const GamePlay({Key? key}) : super(key: key);
 
@@ -26,22 +20,7 @@ class GamePlay extends StatelessWidget {
         child: GameWidget(
           // game: MasksweirdGame(),
           game: RouterGame(),
-          // // Initially only pause button overlay will be visible.
-          // initialActiveOverlays: const [PauseButton.id],
-          // overlayBuilderMap: {
-          //   PauseButton.id: (BuildContext context, MasksweirdGame gameRef) =>
-          //       PauseButton(
-          //         gameRef: gameRef,
-          //       ),
-          //   PauseMenu.id: (BuildContext context, MasksweirdGame gameRef) =>
-          //       PauseMenu(
-          //         gameRef: gameRef,
-          //       ),
-          //   GameOverMenu.id: (BuildContext context, MasksweirdGame gameRef) =>
-          //       GameOverMenu(
-          //         gameRef: gameRef,
-          //       ),
-          // },
+       
         ),
       ),
     );

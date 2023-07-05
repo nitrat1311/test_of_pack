@@ -4,12 +4,16 @@ import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
 import 'package:flame/rendering.dart';
 import 'package:flutter/rendering.dart';
+import 'package:slot_package/const/colors.dart';
 import 'package:slot_package/game/enemy_manager.dart';
+
+import 'health_bar.dart';
 
 
 class RouterGame extends FlameGame with HasTappableComponents{
   late final RouterComponent router;
   int health = 100;
+  
   @override
   Future<void> onLoad() async {
     add(
@@ -18,6 +22,7 @@ class RouterGame extends FlameGame with HasTappableComponents{
           'home': Route(StartPage.new),
           'level1': Route(Level1Page.new),
           'level2': Route(Level2Page.new),
+          'level3': Route(Level3Page.new),
           'pause': PauseRoute(),
         },
         initialRoute: 'home',
@@ -33,7 +38,7 @@ class StartPage extends Component with HasGameRef<RouterGame> {
   StartPage() {
     addAll([
       _logo = TextComponent(
-        text: 'New Game',
+        text: AppColors.appLable,
         textRenderer: TextPaint(
           style: const TextStyle(
             fontSize: 64,
@@ -46,14 +51,14 @@ class StartPage extends Component with HasGameRef<RouterGame> {
       _button1 = RoundedButton(
         text: 'Level 1',
         action: () => gameRef.router.pushNamed('level1'),
-        color: const Color(0xffadde6c),
-        borderColor: const Color(0xffedffab),
+        color: const Color.fromARGB(255, 194, 227, 150),
+        borderColor: const Color.fromARGB(255, 208, 238, 100),
       ),
       _button2 = RoundedButton(
         text: 'Level 2',
         action: () => gameRef.router.pushNamed('level2'),
-        color: const Color(0xffdebe6c),
-        borderColor: const Color(0xfffff4c7),
+        color: const Color.fromARGB(255, 179, 152, 83),
+        borderColor: const Color.fromARGB(255, 117, 162, 104),
       ),
     ]);
   }
@@ -66,8 +71,8 @@ class StartPage extends Component with HasGameRef<RouterGame> {
   void onGameResize(Vector2 size) {
     super.onGameResize(size);
     _logo.position = Vector2(size.x / 2, size.y / 3);
-    _button1.position = Vector2(size.x / 2, _logo.y + 80);
-    _button2.position = Vector2(size.x / 2, _logo.y + 140);
+    _button1.position = Vector2(size.x / 2, _logo.y + 75);
+    _button2.position = Vector2(size.x / 2, _logo.y + 135);
   }
 }
 
@@ -215,9 +220,10 @@ class Level1Page extends Component {
   Future<void> onLoad() async {
     final game = findGame()!;
     addAll([
-      EnemyManager(),
+      EnemyManager(lvl: 1),
       Background(const Color(0xbb2a074f)),
       BackButton(),
+      HealthBar(position: Vector2(25, 55)),
       PauseButton(),
       Planet(
         radius: 25,
@@ -245,13 +251,40 @@ class Level1Page extends Component {
   }
 }
 
+class Level3Page extends Component {
+  @override
+  Future<void> onLoad() async {
+    final game = findGame()!;
+    addAll([
+    
+      Background(const Color.fromRGBO(255, 255, 255, 0.535)),
+      BackButton(),
+      PauseButton(),
+      TextComponent(
+        text: 'GAME OVER',
+        position: game.size/2,
+        textRenderer: TextPaint(
+          
+          style: const TextStyle(
+            fontSize: 48,
+            color: Color.fromARGB(255, 0, 0, 0),
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        anchor: Anchor.center,
+      )
+    ]);
+  }
+}
 class Level2Page extends Component {
   @override
   Future<void> onLoad() async {
     final game = findGame()!;
     addAll([
+      EnemyManager(lvl: 0.5),
       Background(const Color(0xff052b44)),
       BackButton(),
+      HealthBar(position: Vector2(25, 55)),
       PauseButton(),
       Planet(
         radius: 30,
@@ -288,7 +321,6 @@ class Level2Page extends Component {
     ]);
   }
 }
-
 class Planet extends PositionComponent {
   Planet({
     required this.radius,

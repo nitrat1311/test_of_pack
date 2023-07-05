@@ -19,22 +19,18 @@ class EnemyManager extends Component
   // The timer which runs the enemy spawner code at regular interval of time.
   late Timer _timer;
 late SpriteSheet ballSprite;
-  // Controls for how long EnemyManager should stop spawning new enemies.
-  late Timer _freezeTimer;
+final double lvl;
 
 
 
   // Holds an object of Random class to generate random numbers.
   Random random = Random();
 
-  EnemyManager() : super() {
+  EnemyManager( {required this.lvl}) : super() {
     // Sets the timer to call _spawnEnemy() after every 1 second, until timer is explicitly stops.
-    _timer = Timer(1.5, onTick: _spawnEnemy, repeat: true);
+    _timer = Timer(1*lvl, onTick: _spawnEnemy, repeat: true);
 
-    // Sets freeze time to 2 seconds. After 2 seconds spawn timer will start again.
-    _freezeTimer = Timer(2, onTick: () {
-      _timer.start();
-    });
+    // Sets freeze time to 2 seconds. After 2 seconds spawn timer will start again
   }
 @override
   Future<void> onLoad() async {
@@ -52,7 +48,7 @@ late SpriteSheet ballSprite;
         columns: 6,
         rows: 1,
       );
-      add(HealthBar(position: Vector2(25, 55)));
+     
       
       }
 
@@ -130,7 +126,6 @@ late SpriteSheet ballSprite;
     super.update(dt);
     // Update timers with delta time to make them tick.
     _timer.update(dt);
-    _freezeTimer.update(dt);
   }
 
   // Stops and restarts the timer. Should be called
@@ -141,11 +136,6 @@ late SpriteSheet ballSprite;
   }
 
   // Pauses spawn timer for 2 seconds when called.
-  void freeze() {
-    _timer.stop();
-    _freezeTimer.stop();
-    _freezeTimer.start();
-  }
 
   /// A private list of all [EnemyData]s.
   static const List<EnemyData> _enemyDataList = [

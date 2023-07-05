@@ -11,7 +11,6 @@ import '../../models/enemy_data.dart';
 
 
 import 'game2.dart';
-import 'player.dart';
 import 'knows_game_size.dart';
 
 
@@ -100,7 +99,16 @@ class Enemy extends SpriteComponent
 
   // This method will destory this enemy.
   void destroy() {
-  gameRef.health-=20;
+  gameRef.health-=5;
+
+
+            if ( gameRef.health <= 0) {
+  gameRef.health=100;
+     gameRef.router.pushReplacementNamed('level3');
+     
+
+          
+        }
     removeFromParent();
 
 
@@ -127,11 +135,7 @@ class Enemy extends SpriteComponent
   }
 
   void destroyMe() {
-          if ( gameRef.health <= 10) {
-          gameRef.pauseEngine();
-            gameRef.router.pushNamed('home');
-          
-        }
+
     removeFromParent();
 
     // gameRef.addCommand(Command<AudioPlayerComponent>(action: (audioPlayer) {
